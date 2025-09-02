@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My First GitHub Page</title>
+  <meta charset="UTF-8">
+  <title>Under Construction</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+    #login, #content { display: none; }
+    .container { text-align: center; }
+    input, button {
+      padding: 8px;
+      margin-top: 10px;
+      font-size: 1em;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <p>This is my first GitHub Pages site 🚀</p>
+  <!-- Password screen -->
+  <div id="login" class="container">
+    <h2>Password Required</h2>
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="checkPassword()">Submit</button>
+    <p id="error" style="color:red;"></p>
+  </div>
+
+  <!-- Content shown only if password is correct -->
+  <div id="content" class="container">
+    <h1>🚧 Under Construction 🚧</h1>
+    <p>Come back soon!</p>
+  </div>
+
+  <script>
+    const correctPassword = "letmein"; // 👈 change this to your password
+
+    document.getElementById("login").style.display = "block";
+
+    function checkPassword() {
+      const entered = document.getElementById("password").value;
+      if (entered === correctPassword) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      } else {
+        document.getElementById("error").textContent = "Wrong password!";
+      }
+    }
+  </script>
 </body>
 </html>
