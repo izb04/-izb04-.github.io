@@ -68,11 +68,14 @@
     display: block;
   }
 
-  .gallery-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+ .gallery-item img {
+  display: block;
+  max-width: 100%;     /* never overflow the column horizontally */
+  max-height: 260px;   /* cap the height so tall images don’t get huge */
+  width: auto;         /* let the image keep its natural width/ratio */
+  height: auto;        /* let the image keep its natural height/ratio */
+  object-fit: contain; /* show the whole image, no cropping */
+}
 
   .gallery-item figcaption {
     padding: 0.5rem 0.75rem 0.75rem;
