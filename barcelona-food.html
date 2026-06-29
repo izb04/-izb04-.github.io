@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Barcelona Food Gallery</title>
+  <link rel="stylesheet" href="style.css">
 
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Times New Roman', Times, serif;
+      background-color: #1a120b;
+      color: #f9f3e6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .page-header {
+      max-width: 900px;
+      width: 100%;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+
+    .page-header p {
+      margin-top: 8px;
+      font-size: 15px;
+      color: #e2d4c4;
+    }
+
+    .nav-links {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .gallery-grid {
+      max-width: 900px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .gallery-item {
+      background-color: #2b1d0e;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-caption {
+      padding: 8px 10px;
+      font-size: 13px;
+      color: #f9f3e6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Barcelona Food Gallery</h1>
+    <p>Meals, snacks, and moments from Barcelona — each photo is a memory from the trip.</p>
+
+    <div class="nav-links">
+      <a href="art.html">Back to map</a>
+      <a href="index.html">Back to corkboard</a>
+    </div>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- Replace the src paths with your actual image files -->
+
+    <div class="gallery-item">
+      <img src="images/barcelona-tapas-1.jpeg" alt="Tapas plate">
+      <div class="gallery-caption">Tapas at a small bar off La Rambla.</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/barcelona-paella-1.jpeg" alt="Seafood paella">
+      <div class="gallery-caption">Seafood paella by the beach.</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/barcelona-churros-1.jpeg" alt="Churros and chocolate">
+      <div class="gallery-caption">Churros con chocolate from a late-night café.</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/barcelona-market-1.jpeg" alt="Market stall">
+      <div class="gallery-caption">Fresh fruit at La Boqueria market.</div>
+    </div>
+  </div>
+
+</body>
+</html>
