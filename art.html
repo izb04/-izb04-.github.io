@@ -1,1 +1,95 @@
+<!-- Art gallery start -->
+<section class="gallery">
+  <h2>Art gallery</h2>
 
+  <div class="gallery-grid">
+    <figure class="gallery-item">
+      <a href="images/painting-1.jpg" target="_blank">
+        <img src="images/painting-1.jpg" alt="Blue landscape painting">
+      </a>
+      <figcaption>Blue landscape</figcaption>
+    </figure>
+
+    <figure class="gallery-item">
+      <a href="images/painting-2.jpg" target="_blank">
+        <img src="images/painting-2.jpg" alt="Abstract shapes">
+      </a>
+      <figcaption>Abstract shapes</figcaption>
+    </figure>
+
+    <figure class="gallery-item">
+      <a href="images/painting-3.jpg" target="_blank">
+        <img src="images/painting-3.jpg" alt="Flower study">
+      </a>
+      <figcaption>Flower study</figcaption>
+    </figure>
+
+    <!-- duplicate and customize these blocks for more pieces -->
+    <!--
+    <figure class="gallery-item">
+      <a href="images/your-art-file.jpg" target="_blank">
+        <img src="images/your-art-file.jpg" alt="Describe your artwork">
+      </a>
+      <figcaption>Your artwork title</figcaption>
+    </figure>
+    -->
+  </div>
+</section>
+
+<style>
+  .gallery {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .gallery h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .gallery-item {
+    width: 260px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    text-align: center;
+  }
+
+  .gallery-item a {
+    display: block;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .gallery-item figcaption {
+    padding: 0.5rem 0.75rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    transition: all 0.2s ease;
+  }
+
+  /* Optional: make it a bit more responsive on very small screens */
+  @media (max-width: 480px) {
+    .gallery-item {
+      width: 100%;
+    }
+  }
+</style>
+<!-- Art gallery end -->
