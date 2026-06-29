@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Cork Board</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Fridge</title>
   <style>
-    /* ---- GLOBAL RESET ---- */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background: #222;
+      overflow: hidden;
     }
 
-    /* ---- PAGE BACKGROUND (behind everything) ---- */
-body {
-  min-height: 100vh;
-  background-image: url("images/DSC_7098.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px 20px;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-    /* ---- PASSWORD SCREEN ---- */
+    /* ─────────────────────────────────────────────
+       PASSWORD SCREEN
+    ───────────────────────────────────────────── */
     #login-screen {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0,0,0,.75);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -39,467 +28,315 @@ body {
     }
 
     #login-box {
-      background: #fdf0c8;
-      border-radius: 8px;
-      padding: 24px 28px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      background: #fff;
+      padding: 28px;
+      border-radius: 10px;
+      width: 320px;
       text-align: center;
-      border: 2px solid #5c3a1e;
-      max-width: 320px;
-      width: 90%;
       font-family: 'Times New Roman', Times, serif;
     }
 
     #login-box h2 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: #3a2210;
+      margin-bottom: 8px;
+      font-family: 'Times New Roman', Times, serif;
     }
 
-    #login-box p {
-      font-size: 14px;
-      margin-bottom: 14px;
-      color: #5a3a20;
-    }
-
-    #login-box input[type="password"] {
+    #login-box input {
       width: 100%;
-      padding: 8px 10px;
-      font-size: 15px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-      border: 1px solid #b2966b;
+      padding: 10px;
+      margin: 12px 0;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1em;
     }
 
     #login-box button {
-      padding: 8px 16px;
-      font-size: 15px;
-      border-radius: 4px;
-      border: none;
-      background: #5c3a1e;
-      color: #fdf0c8;
+      padding: 8px 20px;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1em;
       cursor: pointer;
     }
 
-    #login-box button:hover {
-      background: #7a4b27;
-    }
+    #err { color: red; margin-top: 8px; font-size: 0.9em; }
 
-    #login-error {
-      margin-top: 8px;
-      font-size: 14px;
-      color: #b00020;
-      min-height: 18px;
-    }
-
-    /* ---- CORK BOARD ---- */
-    .corkboard {
+    /* ─────────────────────────────────────────────
+       SCENE (kitchen + fridge)
+    ───────────────────────────────────────────── */
+    #scene {
+      display: none;
       position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Kitchen background photo */
+    .kitchen-bg {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      max-width: 1200px;
-      min-height: 860px;
-      /* use cork.png in same folder as index.html */
-      background-image: url("cork.png");
-      background-size: cover;
-      background-position: center;
-      border-radius: 6px;
-      border: 18px solid #5c3a1e;
-      box-shadow:
-        inset 0 2px 8px rgba(0,0,0,0.35),
-        0 8px 40px rgba(0,0,0,0.6),
-        0 2px 6px rgba(0,0,0,0.4);
-      padding: 60px 40px 80px;
+      height: 100%;
+      object-fit: cover;
     }
 
-    /* cork grain overlay */
-    .corkboard::before {
-      content: '';
+    /* ─────────────────────────────────────────────
+       FRIDGE
+    ───────────────────────────────────────────── */
+    .fridge-wrap {
       position: absolute;
-      inset: 0;
-      border-radius: 2px;
-      background-image:
-        repeating-linear-gradient(
-          17deg,
-          transparent 0px,
-          rgba(180,120,40,0.07) 1px,
-          transparent 2px,
-          transparent 14px
-        ),
-        repeating-linear-gradient(
-          -11deg,
-          transparent 0px,
-          rgba(100,60,10,0.06) 1px,
-          transparent 2px,
-          transparent 18px
-        );
-      pointer-events: none;
+      left: 50%;
+      bottom: -3%;
+      transform: translateX(-50%);
+      width: min(70vw, 900px);
     }
 
-    /* board frame corner screws */
-    .corkboard::after {
-      content: '';
-      position: absolute;
-      inset: -14px;
-      border-radius: 6px;
-      background:
-        radial-gradient(circle 5px at 14px 14px, #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at calc(100% - 14px) 14px, #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at 14px calc(100% - 14px), #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at calc(100% - 14px) calc(100% - 14px), #3a2210 60%, transparent 61%);
-      pointer-events: none;
-    }
-
-    /* ---- PINNED ITEMS ---- */
-    .pinned-item {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: default;
-      transition: transform 0.2s ease, filter 0.2s ease;
-    }
-
-    a.pinned-item {
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    a.pinned-item:hover {
-      filter: brightness(1.08) drop-shadow(0 6px 18px rgba(0,0,0,0.45));
-      transform: var(--rotate) scale(1.04) translateY(-4px) !important;
-      z-index: 100 !important;
-    }
-
-    a.pinned-item .item-img-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 2px;
-      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    a.pinned-item:hover .item-img-wrap::after {
-      opacity: 1;
-    }
-
-    .item-img-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .item-img-wrap img.item-photo {
+    .fridge {
+      width: 100%;
       display: block;
-      max-width: 100%;
-      height: auto;
-      border-radius: 2px;
+      pointer-events: none;
     }
 
-    .placeholder-card {
-      background: #fdf8f0;
-      border: 2px dashed rgba(0,0,0,0.18);
+    /* ─────────────────────────────────────────────
+       ITEMS PINNED TO THE FRIDGE
+    ───────────────────────────────────────────── */
+    .item {
+      position: absolute;
+      text-decoration: none;
+      color: #222;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .magnet {
+      position: absolute;
+      left: 50%;
+      top: -22px;
+      transform: translateX(-50%);
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      z-index: 3;
+    }
+
+    .css-magnet {
+      position: absolute;
+      left: 50%;
+      top: -20px;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      z-index: 3;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 8px 8px 20px;
       border-radius: 3px;
+      box-shadow: 0 12px 25px rgba(0,0,0,.28);
+      transition: .25s;
+    }
+
+    .item:hover .polaroid {
+      transform: translateY(-8px) rotate(-2deg);
+      box-shadow: 0 18px 35px rgba(0,0,0,.35);
+    }
+
+    .preview {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .preview-placeholder {
+      width: 150px;
+      height: 150px;
+      background: #eee;
+      border: 2px dashed #bbb;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      color: #8a6a4a;
+      color: #999;
+      font-size: 12px;
       font-family: 'Times New Roman', Times, serif;
-      font-size: 13px;
       text-align: center;
-      padding: 10px;
-      box-shadow: 2px 3px 8px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15);
     }
 
-    .placeholder-card .ph-icon {
-      font-size: 26px;
-      opacity: 0.5;
-    }
+    .preview-placeholder .ph-icon { font-size: 28px; opacity: 0.5; }
 
-    .nav-label {
-      margin-top: 6px;
-      background: #fdf0c8;
-      border: 1.5px solid rgba(0,0,0,0.12);
-      border-radius: 3px;
-      padding: 3px 10px 2px;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 17px;
-      font-weight: 700;
-      color: #3a2210;
-      box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
-      white-space: nowrap;
-      letter-spacing: 0.3px;
-    }
-
-    /* ---- PIN ---- */
-    .pin-wrap {
-      position: absolute;
-      top: -18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      width: 32px;
-      height: 32px;
-    }
-
-    .pin-wrap img.pin-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .css-pin {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -1px 3px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .css-pin::after {
-      content: '';
-      position: absolute;
-      bottom: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 3px;
-      height: 14px;
-      background: linear-gradient(to bottom, #888, #555);
-      border-radius: 0 0 2px 2px;
-    }
-
-    /* ---- TAPE ---- */
-    .tape {
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-3deg);
-      width: 54px;
-      height: 22px;
-      background: rgba(255, 240, 150, 0.55);
-      border-left: 1px solid rgba(200,180,80,0.3);
-      border-right: 1px solid rgba(200,180,80,0.3);
-      backdrop-filter: blur(1px);
-      z-index: 10;
-    }
-
-    /* ---- STICKY NOTE ---- */
-    .sticky {
-      position: absolute;
-      background: #f9e84a;
-      padding: 14px 16px 10px;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 18px;
-      color: #2a2a2a;
-      line-height: 1.4;
-      box-shadow: 3px 4px 10px rgba(0,0,0,0.3);
-      z-index: 5;
-    }
-
-    /* ---- PHOTO STRIP ---- */
-    .photo-strip {
-      position: absolute;
-      background: white;
-      padding: 6px 6px 22px;
-      box-shadow: 2px 4px 12px rgba(0,0,0,0.4);
-    }
-
-    .photo-strip .strip-inner {
-      width: 110px;
-      height: 90px;
-      background: #c9bfb3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
-      font-size: 11px;
-      font-family: 'Times New Roman', Times, serif;
-    }
-
-    .photo-strip p {
+    .caption {
       text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
       font-family: 'Times New Roman', Times, serif;
-      font-size: 13px;
-      color: #555;
-      margin-top: 4px;
+      font-size: 14px;
     }
 
-    /* ---- TWINE ---- */
-    .twine {
-      position: absolute;
-      height: 2px;
-      background: linear-gradient(to right, #a07840, #c9a060, #a07840);
-      transform-origin: left center;
-      opacity: 0.7;
-      z-index: 1;
-    }
+    /* ─────────────────────────────────────────────
+       NAV ITEM POSITIONS ON THE FRIDGE
+       Adjust top/left % to move items around
+    ───────────────────────────────────────────── */
+    #art  { top: 18%; left: 24%; }
+    #work { top: 14%; left: 58%; }
+    #food { top: 49%; left: 46%; }
 
-    /* ---- DOODLES ---- */
-    .doodle {
+    /* ─────────────────────────────────────────────
+       DECORATIVE MAGNETS (no link)
+    ───────────────────────────────────────────── */
+    .decor {
       position: absolute;
-      font-size: 28px;
-      opacity: 0.55;
+      width: 52px;
       pointer-events: none;
-      user-select: none;
     }
 
-    /* hide corkboard until password is correct */
-    #corkboard-wrapper {
-      width: 100%;
-      display: none;
+    .decor-css {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      pointer-events: none;
     }
+
+    #d1 { left: 9%;  top: 12%; }
+    #d2 { right: 12%; top: 28%; }
+    #d3 { left: 18%; bottom: 16%; }
+
   </style>
 </head>
 <body>
 
-  <!-- PASSWORD OVERLAY -->
+  <!-- ═══════════════════════════════════════════
+       PASSWORD SCREEN
+  ════════════════════════════════════════════ -->
   <div id="login-screen">
     <div id="login-box">
       <h2>Password Required</h2>
-      <p>Enter the password to view the cork board.</p>
-      <input type="password" id="password-input" placeholder="Enter password" />
-      <button type="button" onclick="checkPassword()">Submit</button>
-      <div id="login-error"></div>
+      <input id="pw" type="password" placeholder="Enter password"
+             onkeydown="if(event.key==='Enter') login()">
+      <button onclick="login()">Enter</button>
+      <p id="err"></p>
     </div>
   </div>
 
-  <!-- CORKBOARD CONTENT (your original layout) -->
-  <div id="corkboard-wrapper">
-    <div class="corkboard">
 
-      <!-- sticky note -->
-      <div class="sticky pinned-item" style="--rotate: rotate(2deg); transform: rotate(2deg); top: 40px; left: 55px; width: 160px; z-index: 4;">
-        <div class="tape"></div>
-       Escaping Allows You To Hear Yourself
+  <!-- ═══════════════════════════════════════════
+       SCENE — revealed after correct password
+  ════════════════════════════════════════════ -->
+  <div id="scene">
+
+    <!-- Kitchen background — swap for: <img class="kitchen-bg" src="images/kitchen.jpg" alt="kitchen"> -->
+    <div class="kitchen-bg" style="background: linear-gradient(160deg, #d6cfc4 0%, #b0a898 100%);"></div>
+
+    <div class="fridge-wrap">
+
+      <!-- Fridge image — swap the div below for: <img class="fridge" src="images/fridge.jpg" alt="fridge"> -->
+      <div class="fridge" style="
+        height: 85vh;
+        background: linear-gradient(170deg, #e8e8e8, #c8c8c8);
+        border-radius: 18px 18px 8px 8px;
+        border: 3px solid #aaa;
+        box-shadow: 4px 0 18px rgba(0,0,0,0.3), -2px 0 8px rgba(0,0,0,0.1);
+        position: relative;
+      ">
+        <div style="
+          position: absolute; right: 14%; top: 12%;
+          width: 12px; height: 80px;
+          background: #bbb; border-radius: 6px;
+          box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        "></div>
       </div>
 
-      <!-- another sticky -->
-      <div class="sticky pinned-item" style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 200px; right: 60px; width: 140px; background: #b8f0b0; z-index: 3; font-size: 15px;">
-        <div class="tape" style="transform: translateX(-50%) rotate(5deg);"></div>
-        updated weekly 🌿
-      </div>
 
-      <!-- photo strip placeholder (decorative) -->
-      <div class="photo-strip" style="transform: rotate(-6deg); top: 340px; left: 30px; z-index: 2;">
-        <div class="css-pin" style="position:absolute; top:-8px; left:50%; transform:translateX(-50%);"></div>
-        <div class="strip-inner">[ photo ]</div>
-        <p>summer '24</p>
-      </div>
+      <!-- ───────────────────────────────────────
+           NAV ITEM 1 — ART → art.html
+      ─────────────────────────────────────────── -->
+      <a id="art" class="item" href="art.html">
 
-      <!-- doodle stars / etc -->
-      <div class="doodle" style="top: 88px; right: 120px; transform: rotate(15deg); font-size: 22px;">★</div>
-      <div class="doodle" style="bottom: 100px; left: 200px; transform: rotate(-10deg);">✿</div>
-      <div class="doodle" style="bottom: 60px; right: 80px; transform: rotate(8deg); font-size: 20px;">♡</div>
-      <div class="doodle" style="top: 170px; left: 260px; font-size: 18px;">✦</div>
+        <!-- Swap for: <img class="magnet" src="images/magnets/art.png" alt="magnet"> -->
+        <div class="css-magnet"
+             style="background: radial-gradient(circle at 35% 35%, #ffb3c6, #e0406a);"></div>
 
-
-      <!-- NAV ITEM 1 — ART -->
-      <a class="pinned-item" href="art.html"
-         style="--rotate: rotate(-7deg); transform: rotate(-7deg); top: 120px; left: 180px; z-index: 6; width: 160px;">
-
-        <div class="pin-wrap">
-  <div class="css-pin"></div>
-</div>
-
-<div class="item-img-wrap" style="width:160px; height:160px;">
-  <img
-    src="images/flowers.png"
-    alt="Flowers"
-    class="item-photo"
-    style="display:block; max-width:100%; height:auto; border-radius:3px;"
-  >
-</div>
-
-<span class="nav-label">art</span>
-</a>
-
-      <!-- NAV ITEM 2 — RESUME / WORK -->
-      <a class="pinned-item" href="work.html"
-         style="--rotate: rotate(5deg); transform: rotate(5deg); top: 100px; left: 50%; margin-left: 40px; z-index: 7; width: 150px;">
-
-        <div class="pin-wrap">
-          <div class="css-pin" style="background: radial-gradient(circle at 35% 35%, #7ec8e3, #0077b6);"></div>
+        <div class="polaroid">
+          <!-- Swap for: <img class="preview" src="images/art-card.png" alt="Art"> -->
+          <div class="preview-placeholder">
+            <span class="ph-icon">🎨</span>
+            <span>art-card.png</span>
+          </div>
+          <div class="caption">art</div>
         </div>
 
-        <div class="item-img-wrap" style="width:150px; height:190px;">
-          <div class="placeholder-card" style="width:150px; height:190px;">
+      </a>
+
+
+      <!-- ───────────────────────────────────────
+           NAV ITEM 2 — RESUME / WORK → work.html
+      ─────────────────────────────────────────── -->
+      <a id="work" class="item" href="work.html">
+
+        <!-- Swap for: <img class="magnet" src="images/magnets/work.png" alt="magnet"> -->
+        <div class="css-magnet"
+             style="background: radial-gradient(circle at 35% 35%, #a0d4f5, #0077b6);"></div>
+
+        <div class="polaroid">
+          <!-- Swap for: <img class="preview" src="images/resume-card.png" alt="Work"> -->
+          <div class="preview-placeholder">
             <span class="ph-icon">💼</span>
             <span>resume-card.png</span>
           </div>
+          <div class="caption">resume / work</div>
         </div>
 
-        <span class="nav-label">resume / work</span>
       </a>
 
-      <!-- NAV ITEM 3 — FOOD DIARY -->
-      <a class="pinned-item" href="food.html"
-         style="--rotate: rotate(-3deg); transform: rotate(-3deg); top: 380px; left: 42%; z-index: 6; width: 155px;">
 
-        <div class="pin-wrap">
-          <div class="css-pin" style="background: radial-gradient(circle at 35% 35%, #f0c070, #d4880a);"></div>
+      <!-- ───────────────────────────────────────
+           NAV ITEM 3 — FOOD DIARY → food.html
+      ─────────────────────────────────────────── -->
+      <a id="food" class="item" href="food.html">
+
+        <!-- Swap for: <img class="magnet" src="images/magnets/food.png" alt="magnet"> -->
+        <div class="css-magnet"
+             style="background: radial-gradient(circle at 35% 35%, #ffe599, #d4880a);"></div>
+
+        <div class="polaroid">
+          <!-- Swap for: <img class="preview" src="images/food-card.png" alt="Food"> -->
+          <div class="preview-placeholder">
+            <span class="ph-icon">🍜</span>
+            <span>food-card.png</span>
+          </div>
+          <div class="caption">food diary</div>
         </div>
 
-       <div class="item-img-wrap">
-  <img
-    src="images/sweetpotato.png"
-    alt="Sweet potato dish"
-    class="item-photo"
-    style="display:block; max-width:100%; height:auto; border-radius:3px;"
-  >
-</div>
-
-        <span class="nav-label">food diary</span>
       </a>
 
-      <!-- EXTRA DECORATIVE PINNED PHOTO -->
-      <div class="pinned-item"
-           style="--rotate: rotate(11deg); transform: rotate(11deg); top: 310px; right: 80px; z-index: 5; width: 140px;">
-        <div class="pin-wrap">
-          <div class="css-pin" style="background: radial-gradient(circle at 35% 35%, #c8a0e0, #7b2d8b);"></div>
-        </div>
-        <div class="item-img-wrap" style="width:140px; height:140px;">
-          <div class="placeholder-card" style="width:140px; height:140px;">
-            <span class="ph-icon">📷</span>
-            <span>your-photo.png</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- second decorative item -->
-      <div class="pinned-item"
-           style="--rotate: rotate(-9deg); transform: rotate(-9deg); top: 500px; left: 80px; z-index: 5; width: 130px;">
-        <div class="pin-wrap">
-          <div class="css-pin"></div>
-        </div>
-        <div class="item-img-wrap" style="width:130px; height:130px;">
-          <div class="placeholder-card" style="width:130px; height:130px;">
-            <span class="ph-icon">📷</span>
-            <span>your-photo.png</span>
-          </div>
-        </div>
-      </div>
+      <!-- ───────────────────────────────────────
+           DECORATIVE MAGNETS (not links)
+           Swap each div for:
+           <img id="d1" class="decor" src="images/magnets/decor1.png">
+      ─────────────────────────────────────────── -->
+      <div id="d1" class="decor-css"
+           style="background: radial-gradient(circle at 35% 35%, #b5ead7, #2d8b6b); left:9%; top:12%;"></div>
+      <div id="d2" class="decor-css"
+           style="background: radial-gradient(circle at 35% 35%, #c9b1d9, #7b2d8b); right:12%; top:28%;"></div>
+      <div id="d3" class="decor-css"
+           style="background: radial-gradient(circle at 35% 35%, #ffd6a5, #c06020); left:18%; bottom:16%;"></div>
 
-    </div><!-- /.corkboard -->
-  </div><!-- /#corkboard-wrapper -->
+    </div><!-- /.fridge-wrap -->
+  </div><!-- /#scene -->
+
 
   <script>
-    // change this to whatever password you want
-    const CORRECT_PASSWORD = "letmein";
+    const CORRECT_PASSWORD = "letmein"; // 👈 change this to your password
 
-    function checkPassword() {
-      const entered = document.getElementById("password-input").value;
-      const error = document.getElementById("login-error");
-
-      if (entered === CORRECT_PASSWORD) {
+    function login() {
+      if (document.getElementById("pw").value === CORRECT_PASSWORD) {
         document.getElementById("login-screen").style.display = "none";
-        document.getElementById("corkboard-wrapper").style.display = "block";
+        document.getElementById("scene").style.display = "block";
       } else {
-        error.textContent = "Wrong password.";
+        document.getElementById("err").textContent = "Wrong password.";
       }
     }
   </script>
