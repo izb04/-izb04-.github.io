@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Cork Board</title>
+  <title>My Fridge</title>
 
   <style>
     /* ---- GLOBAL RESET ---- */
@@ -95,12 +95,11 @@ body {
     /* ---- CORK BOARD ---- */
     .corkboard {
       position: relative;
-      width: 100%;
-      max-width: 1200px;
+      width: 75%;
+      max-width: 900px;
       min-height: 860px;
-      /* use cork.png in same folder as index.html */
-      background-image: url("cork.png");
-      background-size: cover;
+      background-image: url("images/fridge.jpeg");
+      background-size: 115%;
       background-position: center;
       border-radius: 6px;
       border: 18px solid #5c3a1e;
@@ -360,8 +359,8 @@ body {
   <!-- PASSWORD OVERLAY -->
   <div id="login-screen">
     <div id="login-box">
-      <h2>Password Required</h2>
-      <p>Enter the password to view the cork board.</p>
+      <h2>Fridge is Locked</h2>
+      <p>Enter the password to view the fridge.</p>
       <input type="password" id="password-input" placeholder="Enter password" />
       <button type="button" onclick="checkPassword()">Submit</button>
       <div id="login-error"></div>
