@@ -13,19 +13,19 @@
       padding: 0;
     }
 
-    /* ---- PAGE BACKGROUND (behind everything) ---- */
-body {
-  min-height: 100vh;
-  background-image: url("images/DSC_7098.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 40px 20px;
-  font-family: 'Times New Roman', Times, serif;
-}
+    /* ---- PAGE BACKGROUND ---- */
+    body {
+      min-height: 100vh;
+      background-image: url("images/DSC_7098.jpeg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: 'Times New Roman', Times, serif;
+    }
 
     /* ---- PASSWORD SCREEN ---- */
     #login-screen {
@@ -92,60 +92,17 @@ body {
       min-height: 18px;
     }
 
-    /* ---- CORK BOARD ---- */
+    /* ---- FRIDGE ---- */
     .corkboard {
       position: relative;
-      width: 75%;
-      max-width: 900px;
+      width: 65%;
+      max-width: 860px;
       min-height: 860px;
       background-image: url("images/fridge.jpeg");
-      background-size: 115%;
-      background-position: center;
-      border-radius: 6px;
-      border: 18px solid #5c3a1e;
-      box-shadow:
-        inset 0 2px 8px rgba(0,0,0,0.35),
-        0 8px 40px rgba(0,0,0,0.6),
-        0 2px 6px rgba(0,0,0,0.4);
+      background-size: 165%;
+      background-position: center 68%;
       padding: 60px 40px 80px;
-    }
-
-    /* cork grain overlay */
-    .corkboard::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 2px;
-      background-image:
-        repeating-linear-gradient(
-          17deg,
-          transparent 0px,
-          rgba(180,120,40,0.07) 1px,
-          transparent 2px,
-          transparent 14px
-        ),
-        repeating-linear-gradient(
-          -11deg,
-          transparent 0px,
-          rgba(100,60,10,0.06) 1px,
-          transparent 2px,
-          transparent 18px
-        );
-      pointer-events: none;
-    }
-
-    /* board frame corner screws */
-    .corkboard::after {
-      content: '';
-      position: absolute;
-      inset: -14px;
-      border-radius: 6px;
-      background:
-        radial-gradient(circle 5px at 14px 14px, #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at calc(100% - 14px) 14px, #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at 14px calc(100% - 14px), #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at calc(100% - 14px) calc(100% - 14px), #3a2210 60%, transparent 61%);
-      pointer-events: none;
+      margin: 0 auto;
     }
 
     /* ---- PINNED ITEMS ---- */
@@ -198,78 +155,67 @@ body {
     }
 
     .placeholder-card {
-      background: #fdf8f0;
-      border: 2px dashed rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.12);
+      border: 2px dashed rgba(255,255,255,0.35);
       border-radius: 3px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      color: #8a6a4a;
+      color: rgba(255,255,255,0.75);
       font-family: 'Times New Roman', Times, serif;
       font-size: 13px;
       text-align: center;
       padding: 10px;
-      box-shadow: 2px 3px 8px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15);
     }
 
     .placeholder-card .ph-icon {
       font-size: 26px;
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
-    .nav-label {
-      margin-top: 6px;
-      background: #fdf0c8;
-      border: 1.5px solid rgba(0,0,0,0.12);
-      border-radius: 3px;
-      padding: 3px 10px 2px;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 17px;
-      font-weight: 700;
-      color: #3a2210;
-      box-shadow: 1px 2px 5px rgba(0,0,0,0.2);
-      white-space: nowrap;
-      letter-spacing: 0.3px;
+    /* ---- MAGNET ---- */
+    .magnet {
+      width: 54px;
+      height: 22px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #d0d0d0 0%, #f4f4f4 50%, #b4b4b4 100%);
+      border: 1px dashed rgba(0,0,0,0.18);
+      margin-bottom: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.28);
+      overflow: hidden;
+      flex-shrink: 0;
     }
 
-    /* ---- PIN ---- */
-    .pin-wrap {
-      position: absolute;
-      top: -18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      width: 32px;
-      height: 32px;
-    }
-
-    .pin-wrap img.pin-photo {
+    .magnet img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
+      display: block;
     }
 
-    .css-pin {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -1px 3px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .css-pin::after {
-      content: '';
+    /* ---- TOOLTIP ---- */
+    .tooltip {
       position: absolute;
-      bottom: -14px;
+      bottom: -30px;
       left: 50%;
       transform: translateX(-50%);
-      width: 3px;
-      height: 14px;
-      background: linear-gradient(to bottom, #888, #555);
-      border-radius: 0 0 2px 2px;
+      background: rgba(0,0,0,0.72);
+      color: #fff;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 200;
+    }
+
+    a.pinned-item:hover .tooltip {
+      opacity: 1;
     }
 
     /* ---- TAPE ---- */
@@ -328,16 +274,6 @@ body {
       margin-top: 4px;
     }
 
-    /* ---- TWINE ---- */
-    .twine {
-      position: absolute;
-      height: 2px;
-      background: linear-gradient(to right, #a07840, #c9a060, #a07840);
-      transform-origin: left center;
-      opacity: 0.7;
-      z-index: 1;
-    }
-
     /* ---- DOODLES ---- */
     .doodle {
       position: absolute;
@@ -347,7 +283,7 @@ body {
       user-select: none;
     }
 
-    /* hide corkboard until password is correct */
+    /* hide fridge until password is correct */
     #corkboard-wrapper {
       width: 100%;
       display: none;
@@ -367,116 +303,86 @@ body {
     </div>
   </div>
 
-  <!-- CORKBOARD CONTENT (your original layout) -->
+  <!-- FRIDGE CONTENT -->
   <div id="corkboard-wrapper">
     <div class="corkboard">
 
-      <!-- sticky note -->
-      <div class="sticky pinned-item" style="--rotate: rotate(2deg); transform: rotate(2deg); top: 40px; left: 55px; width: 160px; z-index: 4;">
+      <!-- sticky note — left door -->
+      <div class="sticky pinned-item" style="--rotate: rotate(2deg); transform: rotate(2deg); top: 55px; left: 7%; z-index: 4; width: 148px;">
         <div class="tape"></div>
-       Escaping Allows You To Hear Yourself
+        Escaping Allows You To Hear Yourself
       </div>
 
-      <!-- another sticky -->
-      <div class="sticky pinned-item" style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 200px; right: 60px; width: 140px; background: #b8f0b0; z-index: 3; font-size: 15px;">
+      <!-- sticky note — right door -->
+      <div class="sticky pinned-item" style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 65px; right: 9%; width: 128px; background: #b8f0b0; z-index: 3; font-size: 15px;">
         <div class="tape" style="transform: translateX(-50%) rotate(5deg);"></div>
         updated weekly 🌿
       </div>
 
-      <!-- photo strip placeholder (decorative) -->
-      <div class="photo-strip" style="transform: rotate(-6deg); top: 340px; left: 30px; z-index: 2;">
-        <div class="css-pin" style="position:absolute; top:-8px; left:50%; transform:translateX(-50%);"></div>
+      <!-- photo strip — left door lower -->
+      <div class="photo-strip" style="transform: rotate(-5deg); top: 490px; left: 7%; z-index: 2;">
+        <div class="magnet" style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); margin-bottom:0;"><img src="" alt="magnet"></div>
         <div class="strip-inner">[ photo ]</div>
         <p>summer '24</p>
       </div>
 
-      <!-- doodle stars / etc -->
-      <div class="doodle" style="top: 88px; right: 120px; transform: rotate(15deg); font-size: 22px;">★</div>
-      <div class="doodle" style="bottom: 100px; left: 200px; transform: rotate(-10deg);">✿</div>
-      <div class="doodle" style="bottom: 60px; right: 80px; transform: rotate(8deg); font-size: 20px;">♡</div>
-      <div class="doodle" style="top: 170px; left: 260px; font-size: 18px;">✦</div>
+      <!-- doodles -->
+      <div class="doodle" style="top: 85px; left: 46%; transform: rotate(15deg); font-size: 22px;">★</div>
+      <div class="doodle" style="bottom: 110px; left: 30%; transform: rotate(-10deg);">✿</div>
+      <div class="doodle" style="bottom: 70px; right: 16%; transform: rotate(8deg); font-size: 20px;">♡</div>
+      <div class="doodle" style="top: 310px; left: 44%; font-size: 18px;">✦</div>
 
-
-      <!-- NAV ITEM 1 — ART -->
+      <!-- NAV ITEM 1 — ART (left door) -->
       <a class="pinned-item" href="art.html"
-         style="--rotate: rotate(-7deg); transform: rotate(-7deg); top: 120px; left: 180px; z-index: 6; width: 160px;">
-
-        <div class="pin-wrap">
-  <div class="css-pin"></div>
-</div>
-
-<div class="item-img-wrap" style="width:160px; height:160px;">
-  <img
-    src="images/flowers.png"
-    alt="Flowers"
-    class="item-photo"
-    style="display:block; max-width:100%; height:auto; border-radius:3px;"
-  >
-</div>
-
-<span class="nav-label">art</span>
-</a>
-
-      <!-- NAV ITEM 2 — RESUME / WORK -->
-      <a class="pinned-item" href="work.html"
-         style="--rotate: rotate(5deg); transform: rotate(5deg); top: 100px; left: 50%; margin-left: 40px; z-index: 7; width: 150px;">
-
-        <div class="pin-wrap">
-          <div class="css-pin" style="background: radial-gradient(circle at 35% 35%, #7ec8e3, #0077b6);"></div>
+         style="--rotate: rotate(-7deg); transform: rotate(-7deg); top: 170px; left: 8%; z-index: 6; width: 150px;">
+        <div class="magnet"><img src="" alt="magnet"></div>
+        <div class="item-img-wrap" style="width:150px; height:150px;">
+          <img src="images/flowers.png" alt="Flowers" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
+        <span class="tooltip">art</span>
+      </a>
 
-        <div class="item-img-wrap" style="width:150px; height:190px;">
-          <div class="placeholder-card" style="width:150px; height:190px;">
+      <!-- NAV ITEM 2 — RESUME / WORK (right door) -->
+      <a class="pinned-item" href="work.html"
+         style="--rotate: rotate(5deg); transform: rotate(5deg); top: 155px; right: 8%; z-index: 7; width: 145px;">
+        <div class="magnet"><img src="" alt="magnet"></div>
+        <div class="item-img-wrap" style="width:145px; height:185px;">
+          <div class="placeholder-card" style="width:145px; height:185px;">
             <span class="ph-icon">💼</span>
             <span>resume-card.png</span>
           </div>
         </div>
-
-        <span class="nav-label">resume / work</span>
+        <span class="tooltip">resume / work</span>
       </a>
 
-      <!-- NAV ITEM 3 — FOOD DIARY -->
+      <!-- NAV ITEM 3 — FOOD DIARY (left door lower) -->
       <a class="pinned-item" href="food.html"
-         style="--rotate: rotate(-3deg); transform: rotate(-3deg); top: 380px; left: 42%; z-index: 6; width: 155px;">
-
-        <div class="pin-wrap">
-          <div class="css-pin" style="background: radial-gradient(circle at 35% 35%, #f0c070, #d4880a);"></div>
+         style="--rotate: rotate(-3deg); transform: rotate(-3deg); top: 370px; left: 10%; z-index: 6; width: 145px;">
+        <div class="magnet"><img src="" alt="magnet"></div>
+        <div class="item-img-wrap">
+          <img src="images/sweetpotato.png" alt="Sweet potato dish" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
-
-       <div class="item-img-wrap">
-  <img
-    src="images/sweetpotato.png"
-    alt="Sweet potato dish"
-    class="item-photo"
-    style="display:block; max-width:100%; height:auto; border-radius:3px;"
-  >
-</div>
-
-        <span class="nav-label">food diary</span>
+        <span class="tooltip">food diary</span>
       </a>
 
-      <!-- EXTRA DECORATIVE PINNED PHOTO -->
+      <!-- DECORATIVE PHOTO — right door mid -->
       <div class="pinned-item"
-           style="--rotate: rotate(11deg); transform: rotate(11deg); top: 310px; right: 80px; z-index: 5; width: 140px;">
-        <div class="pin-wrap">
-          <div class="css-pin" style="background: radial-gradient(circle at 35% 35%, #c8a0e0, #7b2d8b);"></div>
-        </div>
-        <div class="item-img-wrap" style="width:140px; height:140px;">
-          <div class="placeholder-card" style="width:140px; height:140px;">
+           style="--rotate: rotate(8deg); transform: rotate(8deg); top: 370px; right: 9%; z-index: 5; width: 135px;">
+        <div class="magnet"><img src="" alt="magnet"></div>
+        <div class="item-img-wrap" style="width:135px; height:135px;">
+          <div class="placeholder-card" style="width:135px; height:135px;">
             <span class="ph-icon">📷</span>
             <span>your-photo.png</span>
           </div>
         </div>
       </div>
 
-      <!-- second decorative item -->
+      <!-- DECORATIVE PHOTO 2 — right door lower -->
       <div class="pinned-item"
-           style="--rotate: rotate(-9deg); transform: rotate(-9deg); top: 500px; left: 80px; z-index: 5; width: 130px;">
-        <div class="pin-wrap">
-          <div class="css-pin"></div>
-        </div>
-        <div class="item-img-wrap" style="width:130px; height:130px;">
-          <div class="placeholder-card" style="width:130px; height:130px;">
+           style="--rotate: rotate(-6deg); transform: rotate(-6deg); top: 560px; right: 11%; z-index: 5; width: 125px;">
+        <div class="magnet"><img src="" alt="magnet"></div>
+        <div class="item-img-wrap" style="width:125px; height:125px;">
+          <div class="placeholder-card" style="width:125px; height:125px;">
             <span class="ph-icon">📷</span>
             <span>your-photo.png</span>
           </div>
