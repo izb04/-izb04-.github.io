@@ -1,1 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Isobel Bartels | Resume</title>
 
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #2a2118;
+      --muted: #6f6252;
+      --rule: #d8cbb8;
+      --frame: #5c3a1e;
+      --paper: #fffdf7;
+      --accent: #a15f78;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #c9a173;
+      background-image: url("images/cork.jpg");
+      background-size: 640px auto;
+      background-repeat: repeat;
+      font-family: 'Times New Roman', Times, serif;
+      color: var(--ink);
+      padding: 32px 20px 64px;
+      line-height: 1.45;
+    }
+
+    /* ---- the sheet of paper pinned to the board ---- */
+    .sheet {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--paper);
+      padding: 54px 60px 60px;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.42), 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .sheet::before {
+      content: '';
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b);
+      box-shadow: 0 3px 7px rgba(0,0,0,0.5), inset 0 -1px 3px rgba(0,0,0,0.3);
+    }
+
+    .back-link {
+      display: inline-block;
+      max-width: 900px;
+      margin: 0 auto 18px;
+      color: #fffdf7;
+      font-size: 15px;
+      text-decoration: none;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+    }
+
+    .back-wrap { max-width: 900px; margin: 0 auto; }
+    .back-link:hover { text-decoration: underline; }
+
+    /* ---- header ---- */
+    .name {
+      font-size: 38px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+
+    .contact {
+      text-align: center;
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .contact a { color: var(--accent); text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+
+    /* ---- section headings ---- */
+    h2 {
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 34px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    /* ---- education ---- */
+    .edu { margin-top: 12px; }
+
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .edu-row strong { font-size: 17px; }
+    .edu-sub { color: var(--muted); }
+
+    /* ---- toolbar ---- */
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .toggle-all {
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--accent);
+      background: none;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      padding: 4px 12px;
+      cursor: pointer;
+    }
+
+    .toggle-all:hover { background: #f7e9ef; }
+
+    /* ---- role cards ---- */
+    .role { border-bottom: 1px solid var(--rule); }
+    .role:last-child { border-bottom: none; }
+
+    /* the header is a real button so keyboard + screen readers work */
+    .role-head {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 4px;
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .role-head:hover { background: #fbf4f7; }
+
+    .role-head:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .chev {
+      flex-shrink: 0;
+      width: 13px;
+      margin-top: 7px;
+      color: var(--accent);
+      transition: transform 0.18s ease;
+    }
+
+    .role[open-state="true"] .chev { transform: rotate(90deg); }
+
+    .role-meta { flex: 1; min-width: 0; }
+
+    .role-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .role-org { font-weight: bold; font-size: 17px; }
+    .role-title { font-style: italic; }
+    .role-where, .role-when { color: var(--muted); font-size: 15px; white-space: nowrap; }
+
+    /* one-line gist stays visible when collapsed, so nothing essential hides */
+    .role-gist {
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 3px;
+    }
+
+    .role-body {
+      display: none;
+      padding: 0 4px 18px 27px;
+    }
+
+    .role[open-state="true"] .role-body { display: block; }
+
+    .role-body ul { list-style: none; }
+
+    .role-body li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    .role-body li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .tags { margin-top: 10px; }
+
+    .tag {
+      display: inline-block;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 2px 10px;
+      margin: 0 5px 5px 0;
+    }
+
+    /* ---- artifact gallery (evidence of the work, not selfies) ---- */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .gallery figure {
+      width: 170px;
+      background: #fff;
+      padding: 7px 7px 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+    }
+
+    .gallery img { display: block; width: 100%; height: auto; }
+
+    .gallery figcaption {
+      font-size: 12.5px;
+      color: var(--muted);
+      text-align: center;
+      padding: 6px 2px 8px;
+    }
+
+    /* ---- award callout ---- */
+    .award {
+      margin-top: 16px;
+      background: #fbf4f7;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--accent);
+      border-radius: 3px;
+      padding: 13px 17px;
+    }
+
+    .award-name {
+      font-weight: bold;
+      font-size: 16.5px;
+    }
+
+    .award-name .medal {
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    .award-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    .award-cite {
+      margin-top: 9px;
+      font-size: 13.5px;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ---- narrow screens ---- */
+    @media (max-width: 700px) {
+      body { padding: 18px 12px 40px; }
+      .sheet { padding: 40px 22px 42px; }
+      .name { font-size: 30px; }
+      .contact { font-size: 14px; }
+      .role-when, .role-where { white-space: normal; }
+      .role-body { padding-left: 12px; }
+      .gallery figure { width: 100%; }
+    }
+
+    /* ---- printing: no interaction, so everything must be open ---- */
+    @media print {
+      body { background: none; padding: 0; }
+      .sheet { box-shadow: none; max-width: none; padding: 0; }
+      .sheet::before, .back-wrap, .toolbar { display: none; }
+      .role-body { display: block !important; }
+      .chev, .gallery { display: none; }
+      .role { border-bottom: none; }
+      .role-head { padding: 8px 0 2px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="back-wrap"><a class="back-link" href="index.html">← back to the board</a></div>
+
+  <main class="sheet">
+
+    <h1 class="name">Isobel Bartels</h1>
+    <p class="contact">
+      Toledo, OH &nbsp;|&nbsp;
+      <a href="mailto:barteli@miamioh.edu">barteli@miamioh.edu</a> &nbsp;|&nbsp;
+      (419) 280-7928 &nbsp;|&nbsp;
+      <a href="https://www.linkedin.com/in/isobelbartels" target="_blank" rel="noopener">linkedin.com/in/isobelbartels</a>
+    </p>
+
+    <h2>Education</h2>
+    <div class="edu">
+      <div class="edu-row">
+        <strong>Miami University | Farmer School of Business</strong>
+        <span class="role-where">Oxford, OH</span>
+      </div>
+      <div class="edu-row edu-sub">
+        <span>Bachelor of Science in Business | Business Analytics</span>
+        <span>GPA: 3.61 / 4.0</span>
+      </div>
+      <div class="edu-row edu-sub">
+        <span></span>
+        <span>Expected Graduation: Spring 2027</span>
+      </div>
+    </div>
+
+    <h2>Professional Experience</h2>
+
+    <div class="toolbar">
+      <button type="button" class="toggle-all" id="toggle-all">Expand all</button>
+    </div>
+
+    <!-- EY, most recent. Bullets pending Isobel's input; nothing invented here. -->
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">EY (Ernst &amp; Young)</span>
+            <span class="role-where">Philadelphia, PA</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Digital Risk Consultant Intern</span>
+            <span class="role-when">June 2026 – August 2026</span>
+          </span>
+          <span class="role-gist">Internal audit engagement: control review, risk identification, and controls testing.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Supported a client internal audit engagement, documenting the existing control environment across multiple business process areas</li>
+          <li>Identified and assessed risks by process component, mapping each to the controls intended to mitigate it</li>
+          <li>Executed control testing procedures and recorded results in workpapers supporting the engagement's findings</li>
+          <li>Presented a capstone to partners and senior managers proposing a centralized knowledge hub to accelerate onboarding, increase cross-team visibility, and drive return on existing firm resources</li>
+        </ul>
+
+        <div class="award">
+          <div class="award-name"><span class="medal" aria-hidden="true">★</span>Leadership Excellence Award</div>
+          <div class="award-meta">Ernst &amp; Young · July 2026 · one of four recipients from the summer intern class</div>
+          <p class="award-cite">
+            Presented to the intern who has exhibited outstanding leadership qualities
+            throughout their internship, taking on responsibilities beyond their assigned
+            role, leading projects, mentoring fellow interns, and fostering a collaborative
+            environment.
+          </p>
+        </div>
+
+        <div class="tags">
+          <span class="tag">internal audit</span>
+          <span class="tag">risk assessment</span>
+          <span class="tag">controls testing</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">Celsius</span>
+            <span class="role-where">Oxford, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Campus Ambassador</span>
+            <span class="role-when">May 2025 – Present</span>
+          </span>
+          <span class="role-gist">Campus brand campaigns, sampling 480–1,200+ cans per push.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Execute biweekly KPI campaigns, sampling 480–1,200+ cans through tabling, brand backpacking, and activations</li>
+          <li>Coordinate logistics and secure locations for on-campus events, increasing brand awareness and visibility</li>
+          <li>Manage product inventory by overseeing storage unit, signing off on drop-offs, and ensuring timely distribution</li>
+          <li>Promote the brand with biweekly Instagram and TikTok content aligned with campaign goals</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">brand marketing</span>
+          <span class="tag">events</span>
+          <span class="tag">social content</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">Miami University</span>
+            <span class="role-where">Oxford, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Marketing Data &amp; Videography Intern</span>
+            <span class="role-when">August 2024 – Present</span>
+          </span>
+          <span class="role-gist">Video content and swipe-usage analytics for campus dining.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Produce orientation and dining hall video content to assist the onboarding of thousands of new students annually</li>
+          <li>Research and test strategies to increase dining swipe usage from 55.5% to 65–75%</li>
+          <li>Design detailed metric frameworks tracking swipe data, event engagement levels, and campaign outcomes</li>
+          <li>Conduct student outreach by tabling and surveying to collect feedback and guide future dining initiatives</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">videography</span>
+          <span class="tag">analytics</span>
+          <span class="tag">survey design</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">Midstory</span>
+            <span class="role-where">Toledo, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Storytelling &amp; Data Intern</span>
+            <span class="role-when">June 2025 – August 2025</span>
+          </span>
+          <span class="role-gist">Data visualization and ArcGIS research across 200+ interns.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Analyzed outcomes of 200+ interns and designed a data visualization highlighting program impact</li>
+          <li>Built strong storytelling skills across visual, audio, written, and data-driven communication formats</li>
+          <li>Applied ArcGIS software to identify geographic patterns and strengthen research-based presentations</li>
+          <li>Engaged in outreach and interviews, translating community voices into accessible, compelling narratives</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">ArcGIS</span>
+          <span class="tag">data visualization</span>
+          <span class="tag">interviewing</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">Toledo Mindfulness Institute</span>
+            <span class="role-where">Toledo, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Analytics &amp; Growth Intern</span>
+            <span class="role-when">December 2024 – January 2025</span>
+          </span>
+          <span class="role-gist">Built the data collection systems for an early-stage organization.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Supported early-stage organizational operations by coordinating scheduling and handling detailed event logistics</li>
+          <li>Assisted staff in program delivery by facilitating meetings, recording content, and supporting participants</li>
+          <li>Established reliable data collection systems to track attendance, demographics, engagement levels, and growth</li>
+          <li>Collaborated directly with urban development partners to evaluate business integration and community alignment</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">operations</span>
+          <span class="tag">data collection</span>
+          <span class="tag">partnerships</span>
+        </div>
+      </div>
+    </article>
+
+    <h2>Campus Involvement</h2>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">The Levant Group – Student-Run Marketing Firm</span>
+            <span class="role-where">Oxford, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Member</span>
+            <span class="role-when">August 2025 – Present</span>
+          </span>
+          <span class="role-gist">Client consulting through student-led project teams.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Provide consulting services to real clients across industries through collaborative student-led project teams</li>
+          <li>Gain hands-on experience in project management, client communication, and creative problem-solving</li>
+          <li>Develop marketing strategies and creative content solutions tailored to client goals, ensuring measurable impact</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">Business Honors Program</span>
+            <span class="role-where">Oxford, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Member</span>
+            <span class="role-when">May 2024 – Present</span>
+          </span>
+          <span class="role-gist">Competitive honors cohort; consulting project with A&amp;F.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Selected through a competitive application and interview process into a rigorous business honors cohort</li>
+          <li>Collaborate with faculty and peers in small, discussion- and project-based classes emphasizing critical thinking</li>
+          <li>Completed a consulting project with A&amp;F, presenting detailed recommendations to company leadership</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">Alpha Kappa Psi – Gamma Chi Chapter</span>
+            <span class="role-where">Oxford, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Director of Internal Performance</span>
+            <span class="role-when">May 2025 – Dec 2025</span>
+          </span>
+          <span class="role-gist">Chapter analytics supporting 100+ members.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Translate chapter event data into actionable insights that directly guide organizational performance improvements</li>
+          <li>Maintain and expand a centralized database to streamline chapter tracking, reporting, and participation analysis</li>
+          <li>Lead initiatives including AKPsi Shark Tank competition and an educational workshop on academic AI tools</li>
+          <li>Support professional development of 100+ members by analyzing participation data and recommending strategies</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="role" open-state="false">
+      <button type="button" class="role-head">
+        <span class="chev" aria-hidden="true">▶</span>
+        <span class="role-meta">
+          <span class="role-line">
+            <span class="role-org">Book Buddies</span>
+            <span class="role-where">Oxford, OH</span>
+          </span>
+          <span class="role-line">
+            <span class="role-title">Volunteer</span>
+            <span class="role-when">October 2025 – Present</span>
+          </span>
+          <span class="role-gist">Weekly literacy support at a local elementary school.</span>
+        </span>
+      </button>
+      <div class="role-body">
+        <ul>
+          <li>Read one-on-one and in groups with 5–8 elementary school students per session to support literacy development</li>
+          <li>Foster a positive learning environment by encouraging curiosity, comprehension, and a love for books</li>
+          <li>Build consistent, supportive relationships with students through weekly engagement at a local Oxford elementary</li>
+        </ul>
+      </div>
+    </article>
+
+  </main>
+
+  <script>
+    const roles = [...document.querySelectorAll('.role')];
+    const toggleAllBtn = document.getElementById('toggle-all');
+
+    function setOpen(role, open) {
+      role.setAttribute('open-state', String(open));
+      role.querySelector('.role-head').setAttribute('aria-expanded', String(open));
+    }
+
+    roles.forEach(role => {
+      const head = role.querySelector('.role-head');
+      const body = role.querySelector('.role-body');
+      const id = 'body-' + Math.random().toString(36).slice(2, 9);
+
+      body.id = id;
+      head.setAttribute('aria-controls', id);
+      setOpen(role, false);
+
+      head.addEventListener('click', () => {
+        setOpen(role, role.getAttribute('open-state') !== 'true');
+        syncToggleLabel();
+      });
+    });
+
+    // the most recent role lands open, so the newest work is visible immediately
+    if (roles.length) setOpen(roles[0], true);
+
+    function syncToggleLabel() {
+      const allOpen = roles.every(r => r.getAttribute('open-state') === 'true');
+      toggleAllBtn.textContent = allOpen ? 'Collapse all' : 'Expand all';
+    }
+
+    toggleAllBtn.addEventListener('click', () => {
+      const open = !roles.every(r => r.getAttribute('open-state') === 'true');
+      roles.forEach(r => setOpen(r, open));
+      syncToggleLabel();
+    });
+
+    // printing has no interaction, so make sure nothing is hidden on the page
+    window.addEventListener('beforeprint', () => roles.forEach(r => setOpen(r, true)));
+  </script>
+
+</body>
+</html>
