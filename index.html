@@ -194,26 +194,6 @@
       box-shadow: 0 3px 9px rgba(0,0,0,0.35);
     }
 
-    .placeholder-card {
-      background: rgba(255,255,255,0.38);
-      border: 2px dashed rgba(92,58,30,0.45);
-      border-radius: 3px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      color: rgba(60,38,16,0.8);
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 13px;
-      text-align: center;
-      padding: 10px;
-    }
-
-    .placeholder-card .ph-icon {
-      font-size: 26px;
-      opacity: 0.6;
-    }
 
     /* ---- PUSHPIN ---- */
     .pushpin {
@@ -294,34 +274,6 @@
       z-index: 5;
     }
 
-    /* ---- PHOTO STRIP ---- */
-    .photo-strip {
-      position: absolute;
-      background: white;
-      padding: 6px 6px 22px;
-      box-shadow: 2px 4px 12px rgba(0,0,0,0.4);
-    }
-
-    .photo-strip .strip-inner {
-      width: 110px;
-      height: 90px;
-      background: #c9bfb3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
-      font-size: 11px;
-      font-family: 'Times New Roman', Times, serif;
-    }
-
-    .photo-strip p {
-      text-align: center;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 13px;
-      color: #555;
-      margin-top: 4px;
-    }
-
     /* ---- NARROW SCREENS / PHONES ----
        The board's items are absolutely positioned by percentage but sized in
        fixed pixels, so below roughly 1150px they start colliding (the scatter
@@ -368,8 +320,7 @@
       }
 
       /* keep the images from overflowing a phone-width board */
-      .item-img-wrap,
-      .placeholder-card {
+      .item-img-wrap {
         max-width: 100%;
       }
 
@@ -409,21 +360,18 @@
   <div id="corkboard-wrapper">
     <div class="corkboard">
 
-      <!-- sticky note: top left -->
-      <div class="sticky pinned-item" style="--rotate: rotate(2deg); transform: rotate(2deg); top: 45px; left: 4%; z-index: 4; width: 148px;">
+      <!-- Positions are deliberately uneven: no two items share a top edge and
+           every rotation differs, so the board reads as pinned by hand rather
+           than laid out on a grid. -->
+
+      <div class="sticky pinned-item" style="--rotate: rotate(2deg); transform: rotate(2deg); top: 40px; left: 4%; z-index: 4; width: 148px;">
         <div class="tape"></div>
         Escaping Allows You To Hear Yourself
       </div>
 
-      <!-- sticky note: top right -->
-      <div class="sticky pinned-item" style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 55px; right: 6%; width: 128px; background: #b8f0b0; z-index: 3; font-size: 15px;">
-        <div class="tape" style="transform: translateX(-50%) rotate(5deg);"></div>
-        updated weekly 🌿
-      </div>
-
       <!-- NAV ITEM 1: ART -->
       <a class="pinned-item" href="art.html"
-         style="--rotate: rotate(-7deg); transform: rotate(-7deg); top: 190px; left: 5%; z-index: 6; width: 150px;">
+         style="--rotate: rotate(-7deg); transform: rotate(-7deg); top: 232px; left: 13%; z-index: 6; width: 150px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap" style="width:150px; height:150px;">
           <img src="images/flowers.png" alt="Flowers" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
@@ -431,56 +379,25 @@
         <span class="tooltip">art</span>
       </a>
 
-      <!-- NAV ITEM 2: RESUME / WORK -->
+      <!-- NAV ITEM 2: PROFESSIONAL EXPERIENCE -->
       <a class="pinned-item" href="work.html"
-         style="--rotate: rotate(5deg); transform: rotate(5deg); top: 175px; left: 23%; z-index: 7; width: 145px;">
+         style="--rotate: rotate(5deg); transform: rotate(5deg); top: 96px; left: 41%; z-index: 7; width: 145px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap" style="width:145px; height:188px;">
           <img src="images/resume-thumb.png" alt="Resume" class="item-photo paper" style="display:block; width:100%; height:auto;">
         </div>
-        <span class="tooltip">resume / work</span>
+        <span class="tooltip">professional experience</span>
       </a>
-
-      <!-- DECORATIVE PHOTO: upper middle -->
-      <div class="pinned-item"
-           style="--rotate: rotate(8deg); transform: rotate(8deg); top: 200px; left: 43%; z-index: 5; width: 135px;">
-        <div class="pushpin"></div>
-        <div class="item-img-wrap" style="width:135px; height:135px;">
-          <div class="placeholder-card" style="width:135px; height:135px;">
-            <span class="ph-icon">📷</span>
-            <span>your-photo.png</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- photo strip: upper right -->
-      <div class="photo-strip pinned-item" style="--rotate: rotate(-5deg); transform: rotate(-5deg); top: 185px; left: 61%; z-index: 2;">
-        <div class="pushpin"></div>
-        <div class="strip-inner">[ photo ]</div>
-        <p>summer '24</p>
-      </div>
 
       <!-- NAV ITEM 3: FOOD DIARY -->
       <a class="pinned-item" href="food.html"
-         style="--rotate: rotate(-3deg); transform: rotate(-3deg); top: 420px; left: 13%; z-index: 6; width: 145px;">
+         style="--rotate: rotate(-3deg); transform: rotate(-3deg); top: 348px; left: 62%; z-index: 6; width: 145px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap">
           <img src="images/sweetpotato.png" alt="Sweet potato dish" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
         <span class="tooltip">food diary</span>
       </a>
-
-      <!-- DECORATIVE PHOTO 2: lower right -->
-      <div class="pinned-item"
-           style="--rotate: rotate(-6deg); transform: rotate(-6deg); top: 390px; right: 8%; z-index: 5; width: 125px;">
-        <div class="pushpin"></div>
-        <div class="item-img-wrap" style="width:125px; height:125px;">
-          <div class="placeholder-card" style="width:125px; height:125px;">
-            <span class="ph-icon">📷</span>
-            <span>your-photo.png</span>
-          </div>
-        </div>
-      </div>
 
     </div><!-- /.corkboard -->
   </div><!-- /#corkboard-wrapper -->
