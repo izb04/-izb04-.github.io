@@ -274,6 +274,105 @@
       z-index: 5;
     }
 
+    .visitor-sticky {
+      width: 170px;
+      min-height: 110px;
+      box-sizing: border-box;
+      background: var(--sticky-color, #f9e84a);
+      cursor: default;
+      overflow-wrap: anywhere;
+    }
+
+    .delete-note {
+      position: absolute;
+      top: 5px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(82, 50, 20, 0.78);
+      color: #fff;
+      cursor: pointer;
+      font: bold 17px/20px Arial, sans-serif;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .visitor-sticky:hover .delete-note,
+    .delete-note:focus-visible {
+      opacity: 1;
+    }
+
+    .visitor-sticky::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.45);
+    }
+
+    #note-dialog {
+      border: 0;
+      border-radius: 4px;
+      padding: 0;
+      background: #f9e84a;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    #note-dialog::backdrop {
+      background: rgba(0,0,0,0.35);
+    }
+
+    #note-form,
+    #delete-note-form {
+      width: min(320px, calc(100vw - 48px));
+      padding: 22px;
+    }
+
+    #note-form label,
+    #note-form textarea,
+    #delete-note-form label,
+    #delete-note-form input {
+      display: block;
+      width: 100%;
+    }
+
+    #note-form textarea {
+      box-sizing: border-box;
+      min-height: 100px;
+      margin-top: 8px;
+      padding: 8px;
+      resize: vertical;
+      font: inherit;
+    }
+
+    #delete-note-form input {
+      box-sizing: border-box;
+      margin-top: 8px;
+      padding: 8px;
+      font: inherit;
+    }
+
+    #delete-note-error {
+      min-height: 18px;
+      margin-top: 8px;
+      color: #8b0000;
+    }
+
+    .note-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
     /* ---- NARROW SCREENS / PHONES ----
        The board's items are absolutely positioned by percentage but sized in
        fixed pixels, so below roughly 1150px they start colliding (the scatter
@@ -358,16 +457,11 @@
 
   <!-- CORKBOARD CONTENT -->
   <div id="corkboard-wrapper">
-    <div class="corkboard">
+    <div class="corkboard" title="Right-click the board or any photo to leave a post-it note.">
 
       <!-- Positions are deliberately uneven: no two items share a top edge and
            every rotation differs, so the board reads as pinned by hand rather
            than laid out on a grid. -->
-
-      <div class="sticky pinned-item" style="--rotate: rotate(2deg); transform: rotate(2deg); top: 40px; left: 4%; z-index: 4; width: 148px;">
-        <div class="tape"></div>
-        Escaping Allows You To Hear Yourself
-      </div>
 
       <!-- NAV ITEM 1: ART -->
       <a class="pinned-item" href="art.html"
@@ -402,6 +496,29 @@
     </div><!-- /.corkboard -->
   </div><!-- /#corkboard-wrapper -->
 
+  <dialog id="note-dialog" aria-labelledby="note-dialog-title">
+    <form id="note-form" method="dialog">
+      <label id="note-dialog-title" for="note-text">Leave a note</label>
+      <textarea id="note-text" maxlength="280" required placeholder="Write your post-it note..."></textarea>
+      <div class="note-actions">
+        <button type="button" id="cancel-note">Cancel</button>
+        <button type="submit">Pin note</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="delete-note-dialog" aria-labelledby="delete-note-dialog-title">
+    <form id="delete-note-form" method="dialog">
+      <label id="delete-note-dialog-title" for="delete-note-password">Enter the corkboard password to delete this note</label>
+      <input id="delete-note-password" type="password" required autocomplete="current-password">
+      <div id="delete-note-error" role="alert"></div>
+      <div class="note-actions">
+        <button type="button" id="cancel-delete-note">Cancel</button>
+        <button type="submit">Delete note</button>
+      </div>
+    </form>
+  </dialog>
+
   <script>
     // change this to whatever password you want
     const CORRECT_PASSWORD = "letmein";
@@ -417,6 +534,121 @@
         error.textContent = "Wrong password.";
       }
     }
+
+    const board = document.querySelector('.corkboard');
+    const noteDialog = document.getElementById('note-dialog');
+    const noteForm = document.getElementById('note-form');
+    const noteText = document.getElementById('note-text');
+    const noteStorageKey = 'corkboard-visitor-notes';
+    const stickyColors = ['#b2a5ee', '#664fc9', '#eba2dd', '#db4d4f', '#d1d490', '#a3d6f0'];
+    let pendingNotePosition;
+    let pendingDeleteNoteId;
+
+    function addNote(note) {
+      const sticky = document.createElement('div');
+      sticky.className = 'sticky visitor-sticky';
+      sticky.dataset.noteId = note.id;
+      sticky.textContent = note.text;
+      sticky.style.setProperty('--sticky-color', note.color);
+      sticky.style.left = `${note.left}%`;
+      sticky.style.top = `${note.top}%`;
+      sticky.style.transform = `rotate(${note.rotation}deg)`;
+      sticky.style.zIndex = 20;
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'delete-note';
+      deleteButton.type = 'button';
+      deleteButton.setAttribute('aria-label', 'Delete this note');
+      deleteButton.textContent = '×';
+      deleteButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        pendingDeleteNoteId = note.id;
+        document.getElementById('delete-note-password').value = '';
+        document.getElementById('delete-note-error').textContent = '';
+        document.getElementById('delete-note-dialog').showModal();
+        document.getElementById('delete-note-password').focus();
+      });
+      sticky.appendChild(deleteButton);
+      board.appendChild(sticky);
+    }
+
+    function savedNotes() {
+      try {
+        return JSON.parse(localStorage.getItem(noteStorageKey)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    const storedNotes = savedNotes();
+    const existingNotes = storedNotes.map((note, index) => ({
+      ...note,
+      id: note.id || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      color: note.color || stickyColors[index % stickyColors.length]
+    }));
+    if (existingNotes.some((note, index) => note.id !== storedNotes[index].id || note.color !== storedNotes[index].color)) {
+      try {
+        localStorage.setItem(noteStorageKey, JSON.stringify(existingNotes));
+      } catch {
+        // Existing notes remain usable for this visit if storage is unavailable.
+      }
+    }
+    existingNotes.forEach(addNote);
+
+    board.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+      const bounds = board.getBoundingClientRect();
+      pendingNotePosition = {
+        left: Math.max(0, Math.min(80, ((event.clientX - bounds.left) / bounds.width) * 100)),
+        top: Math.max(0, Math.min(85, ((event.clientY - bounds.top) / bounds.height) * 100))
+      };
+      noteText.value = '';
+      noteDialog.showModal();
+      noteText.focus();
+    });
+
+    document.getElementById('cancel-note').addEventListener('click', () => noteDialog.close());
+
+    noteForm.addEventListener('submit', () => {
+      const text = noteText.value.trim();
+      if (!text || !pendingNotePosition) return;
+      const note = {
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        text,
+        ...pendingNotePosition,
+        color: stickyColors[savedNotes().length % stickyColors.length],
+        rotation: Math.round((Math.random() * 10 - 5) * 10) / 10
+      };
+      const notes = savedNotes();
+      notes.push(note);
+      try {
+        localStorage.setItem(noteStorageKey, JSON.stringify(notes));
+      } catch {
+        // The note still appears for this visit if storage is unavailable.
+      }
+      addNote(note);
+    });
+
+    document.getElementById('cancel-delete-note').addEventListener('click', () => {
+      document.getElementById('delete-note-dialog').close();
+    });
+
+    document.getElementById('delete-note-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const password = document.getElementById('delete-note-password').value;
+      const error = document.getElementById('delete-note-error');
+      if (password !== CORRECT_PASSWORD) {
+        error.textContent = 'Wrong password.';
+        return;
+      }
+      const remainingNotes = savedNotes().filter((note) => note.id !== pendingDeleteNoteId);
+      try {
+        localStorage.setItem(noteStorageKey, JSON.stringify(remainingNotes));
+      } catch {
+        // The note is still removed for this visit if storage is unavailable.
+      }
+      document.querySelector(`[data-note-id="${pendingDeleteNoteId}"]`)?.remove();
+      document.getElementById('delete-note-dialog').close();
+    });
   </script>
 
 </body>
