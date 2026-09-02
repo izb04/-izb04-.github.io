@@ -325,6 +325,26 @@
         <span></span>
         <span>Expected Graduation: Spring 2027</span>
       </div>
+      <article class="role" open-state="false">
+        <button type="button" class="role-head">
+          <span class="chev" aria-hidden="true">▶</span>
+          <span class="role-meta">
+            <span class="role-org">Relevant Coursework</span>
+          </span>
+        </button>
+        <div class="role-body">
+          <ul>
+            <li>ISA 125 – Introduction to Business Statistics</li>
+            <li>ISA 225 – Principles of Business Analytics</li>
+            <li>ISA 345 – Database Systems and Data Warehousing</li>
+            <li>ISA 381 – Concepts in Business Programming</li>
+            <li>ISA 391 – Applied Regression Analysis in Business</li>
+            <li>ISA 401 – Business Intelligence and Data Visualization</li>
+            <li>ISA 414 – Managing Big Data</li>
+            <li>ISA 491 – Introduction to Data Mining in Business</li>
+          </ul>
+        </div>
+      </article>
     </div>
 
     <h2>Professional Experience</h2>
@@ -621,8 +641,10 @@
       });
     });
 
-    // the most recent role lands open, so the newest work is visible immediately
-    if (roles.length) setOpen(roles[0], true);
+    // The most recent role lands open, so the newest work is visible immediately.
+    // Coursework remains collapsed until selected.
+    const firstProfessionalRole = document.querySelector('.toolbar + .role');
+    if (firstProfessionalRole) setOpen(firstProfessionalRole, true);
 
     function syncToggleLabel() {
       const allOpen = roles.every(r => r.getAttribute('open-state') === 'true');
