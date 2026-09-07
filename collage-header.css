@@ -1,0 +1,20 @@
+.collage-header {
+  display: block;
+  width: min(620px, 100%);
+  margin: 0 auto 20px;
+}
+
+.collage-header img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.collage-header:focus-visible {
+  outline: 2px dashed #3a2210;
+  outline-offset: 4px;
+}
+
+@media print {
+  .collage-header { display: none; }
+}

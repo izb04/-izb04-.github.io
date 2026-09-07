@@ -13,17 +13,10 @@
       padding: 0;
     }
 
-    /* ---- PAGE BACKGROUND (your image, untouched) ---- */
+    /* ---- PAGE ---- */
     body {
       min-height: 100vh;
-      background-image: url("images/DSC_7098.jpeg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 40px 20px;
+      background: #c9a173;
       font-family: 'Times New Roman', Times, serif;
     }
 
@@ -104,37 +97,53 @@
 
     .corkboard {
       position: relative;
-      width: 92%;
-      max-width: 1400px;
-      min-height: 660px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: none;
+      min-height: 100vh;
+      margin: 0;
       padding: 60px 40px 80px;
-      border-radius: 6px;
-      border: 18px solid #5c3a1e;
       background-color: #c9a173;
-      /* tiled at half the file's natural width (1280px), so on a 2x display
-         each tile lands at 1:1 device pixels, no upscaling, no blur */
-      background-image: url("images/cork.jpg");
+      /* A seamless version of the original cork texture prevents tile lines. */
+      background-image: url("images/cork-seamless.png");
       background-repeat: repeat;
       background-size: 640px auto;
-      box-shadow:
-        inset 0 2px 8px rgba(0,0,0,0.35),
-        0 8px 40px rgba(0,0,0,0.6),
-        0 2px 6px rgba(0,0,0,0.4);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.35);
     }
 
-    /* board frame corner screws */
-    .corkboard::after {
-      content: '';
+    /* The approved collage is shown in two cropped windows, preserving its paper edges. */
+    .board-name {
       position: absolute;
-      inset: -14px;
-      border-radius: 6px;
-      background:
-        radial-gradient(circle 5px at 14px 14px, #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at calc(100% - 14px) 14px, #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at 14px calc(100% - 14px), #3a2210 60%, transparent 61%),
-        radial-gradient(circle 5px at calc(100% - 14px) calc(100% - 14px), #3a2210 60%, transparent 61%);
+      top: 26px;
+      left: 28px;
+      width: 310px;
+      height: 205px;
+      transform: scale(1.15);
+      transform-origin: top left;
+      z-index: 8;
       pointer-events: none;
+    }
+
+    .board-name span {
+      display: block;
+      background-image: url("images/isobel-bartels-cutout.png");
+      background-repeat: no-repeat;
+      background-size: 500px auto;
+    }
+
+    .board-name-first {
+      width: 234px;
+      height: 105px;
+      background-position: 0 -27px;
+      transform: rotate(-5deg);
+    }
+
+    .board-name-last {
+      width: 265px;
+      height: 108px;
+      margin-top: -6px;
+      margin-left: 43px;
+      background-position: -235px -27px;
+      transform: rotate(3deg);
     }
 
     /* ---- PINNED ITEMS ---- */
@@ -318,6 +327,9 @@
     }
 
     #note-dialog {
+      position: fixed;
+      inset: 0;
+      margin: auto;
       border: 0;
       border-radius: 4px;
       padding: 0;
@@ -381,7 +393,7 @@
        flow and wrap. !important is needed to beat the per-item inline styles. */
     @media (max-width: 1150px) {
       body {
-        padding: 20px 12px;
+        padding: 0;
       }
 
       .corkboard {
@@ -391,9 +403,9 @@
         align-items: flex-start;
         gap: 40px 22px;
         width: 100%;
-        min-height: 0;
-        padding: 44px 20px 48px;
-        border-width: 12px;
+        min-height: 100vh;
+        padding: 266px 20px 48px;
+        align-content: flex-start;
       }
 
       /* max-width matters: the food-diary item has no inline width, so
@@ -431,8 +443,13 @@
     @media (max-width: 420px) {
       .corkboard {
         gap: 34px 14px;
-        padding: 40px 14px 44px;
-        border-width: 10px;
+        padding: 244px 14px 44px;
+      }
+
+      .board-name {
+        left: 14px;
+        transform: scale(0.96);
+        transform-origin: top left;
       }
 
       .corkboard > .pinned-item {
@@ -457,7 +474,12 @@
 
   <!-- CORKBOARD CONTENT -->
   <div id="corkboard-wrapper">
-    <div class="corkboard" title="Right-click the board or any photo to leave a post-it note.">
+    <div class="corkboard" title="Right-click the board or any photo to leave me a note.">
+
+      <h1 class="board-name" aria-label="Isobel Bartels">
+        <span class="board-name-first" aria-hidden="true"></span>
+        <span class="board-name-last" aria-hidden="true"></span>
+      </h1>
 
       <!-- Positions are deliberately uneven: no two items share a top edge and
            every rotation differs, so the board reads as pinned by hand rather
@@ -498,7 +520,7 @@
 
   <dialog id="note-dialog" aria-labelledby="note-dialog-title">
     <form id="note-form" method="dialog">
-      <label id="note-dialog-title" for="note-text">Leave a note</label>
+      <label id="note-dialog-title" for="note-text">Leave me a note</label>
       <textarea id="note-text" maxlength="280" required placeholder="Write your post-it note..."></textarea>
       <div class="note-actions">
         <button type="button" id="cancel-note">Cancel</button>
