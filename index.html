@@ -472,6 +472,51 @@
 
     }
 
+    .publications-pin {
+      top: 600px;
+      right: 9%;
+      width: 190px;
+      padding: 24px 14px 18px;
+      background: #fffdf0;
+      color: #2a2118;
+      box-shadow: 3px 5px 12px #0004;
+      --rotate: rotate(-6deg);
+      transform: var(--rotate);
+    }
+    .publications-pin .publication-title {
+      width: 100%;
+      padding-bottom: 8px;
+      border-bottom: 3px double #2a2118;
+      text-align: center;
+      font-size: 23px;
+    }
+    .publication-columns {
+      width: 100%;
+      height: 62px;
+      margin-top: 10px;
+      background: repeating-linear-gradient(to bottom, #6f6252 0 1px, transparent 1px 7px);
+      position: relative;
+      opacity: .6;
+    }
+    .publication-columns::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 48%;
+      width: 8px;
+      background: #fffdf0;
+    }
+    .publications-pin:focus-visible { outline: 2px dashed #3a2210; outline-offset: 6px; }
+    @media (min-width: 651px) and (max-width: 1150px) {
+      .corkboard { min-height: max(100vh, 1000px); }
+      .publications-pin { top: 800px; right: 12%; }
+    }
+    @media (max-width: 650px) {
+      .corkboard:has(.publications-pin) { min-height: max(100vh, 1680px); }
+      .publications-pin { top: 1460px; left: 12%; right: auto; }
+    }
+
     /* Stagger the paper landing, then press each pin into the board. */
     @media (prefers-reduced-motion: no-preference) {
       .board-name,
@@ -487,7 +532,8 @@
       .graduation-note { --pin-delay: 740ms; }
       .corkboard > a[href="food.html"] { --pin-delay: 960ms; }
       .portfolio-pin { --pin-delay: 1180ms; }
-      .visitor-sticky { --pin-delay: 1400ms; }
+      .publications-pin { --pin-delay: 1400ms; }
+      .visitor-sticky { --pin-delay: 1620ms; }
 
       .corkboard > .pinned-item > .pushpin,
       .graduation-note > .tape,
@@ -568,6 +614,12 @@
           <img src="images/project-portfolio.png" alt="Project portfolio" class="item-photo">
         </div>
         <span class="tooltip">project portfolio</span>
+      </a>
+
+      <a class="pinned-item publications-pin" href="publications.html">
+        <span class="pushpin" aria-hidden="true"></span>
+        <span class="publication-title">publications</span>
+        <span class="publication-columns" aria-hidden="true"></span>
       </a>
 
     </div><!-- /.corkboard -->
