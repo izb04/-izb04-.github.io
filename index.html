@@ -117,7 +117,7 @@
       left: 28px;
       width: 310px;
       height: 205px;
-      transform: scale(1.15);
+      transform: scale(1.25);
       transform-origin: top left;
       z-index: 8;
       pointer-events: none;
@@ -286,7 +286,7 @@
     .graduation-note {
       top: 80px;
       left: 43%;
-      width: 185px;
+      width: 215px;
       padding: 24px 16px 18px;
       background: #d1d490;
       text-align: center;
@@ -411,17 +411,16 @@
     .portfolio-pin {
       top: 580px;
       left: 36%;
-      width: 190px;
-      padding: 30px 18px 26px;
-      background: #fffdf7;
-      color: #2a2118;
-      text-align: center;
-      font-size: 23px;
-      box-shadow: 3px 5px 12px #0004;
+      width: 180px;
       --rotate: rotate(7deg);
       transform: var(--rotate);
     }
-    .corkboard { min-height: max(100vh, 760px); }
+    .portfolio-pin > .pushpin {
+      top: 26px;
+      left: 23%;
+    }
+
+    .corkboard { min-height: max(100vh, 800px); }
 
     /* Keep the hand-pinned scatter at every screen width. */
     @media (max-width: 1150px) {
@@ -445,7 +444,7 @@
     }
 
     @media (max-width: 650px) {
-      .corkboard:has(.portfolio-pin) { min-height: max(100vh, 1410px); }
+      .corkboard:has(.portfolio-pin) { min-height: max(100vh, 1450px); }
       .portfolio-pin { top: 1220px; left: auto; right: 12%; }
       .corkboard {
         min-height: max(100vh, 930px);
@@ -455,11 +454,11 @@
         right: 10%;
       }
       .corkboard > a[href="work.html"] {
-        top: 460px !important;
+        top: 495px !important;
         left: 9% !important;
       }
       .corkboard > a[href="food.html"] {
-        top: 690px !important;
+        top: 760px !important;
         right: 14%;
       }
     }
@@ -467,7 +466,7 @@
     @media (max-width: 420px) {
       .board-name {
         left: 14px;
-        transform: scale(0.96);
+        transform: scale(1.03);
         transform-origin: top left;
       }
 
@@ -498,9 +497,9 @@
 
       <!-- NAV ITEM 1: ART -->
       <a class="pinned-item" href="art.html"
-         style="--rotate: rotate(11deg); transform: rotate(11deg); top: 115px; left: 72%; z-index: 6; width: 150px;">
+         style="--rotate: rotate(11deg); transform: rotate(11deg); top: 115px; left: 72%; z-index: 6; width: 180px;">
         <div class="pushpin"></div>
-        <div class="item-img-wrap" style="width:150px; height:150px;">
+        <div class="item-img-wrap" style="width:180px; height:180px;">
           <img src="images/flowers.png" alt="Flowers" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
         <span class="tooltip">art</span>
@@ -508,9 +507,9 @@
 
       <!-- NAV ITEM 2: PROFESSIONAL EXPERIENCE -->
       <a class="pinned-item" href="work.html"
-         style="--rotate: rotate(-8deg); transform: rotate(-8deg); top: 310px; left: 21%; z-index: 7; width: 145px;">
+         style="--rotate: rotate(-8deg); transform: rotate(-8deg); top: 310px; left: 21%; z-index: 7; width: 174px;">
         <div class="pushpin"></div>
-        <div class="item-img-wrap" style="width:145px; height:188px;">
+        <div class="item-img-wrap" style="width:174px; height:226px;">
           <img src="images/resume-thumb.png" alt="Resume" class="item-photo paper" style="display:block; width:100%; height:auto;">
         </div>
         <span class="tooltip">professional experience</span>
@@ -518,7 +517,7 @@
 
       <!-- NAV ITEM 3: FOOD DIARY -->
       <a class="pinned-item" href="food.html"
-         style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 405px; left: 56%; z-index: 6; width: 145px;">
+         style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 405px; left: 56%; z-index: 6; width: 174px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap">
           <img src="images/sweetpotato.png" alt="Sweet potato dish" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
@@ -528,7 +527,10 @@
 
       <a class="pinned-item portfolio-pin" href="projects.html">
         <span class="pushpin" aria-hidden="true"></span>
-        project<br>portfolio
+        <div class="item-img-wrap">
+          <img src="images/project-portfolio.png" alt="Project portfolio" class="item-photo">
+        </div>
+        <span class="tooltip">project portfolio</span>
       </a>
 
     </div><!-- /.corkboard -->
