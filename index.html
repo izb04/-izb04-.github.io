@@ -472,13 +472,50 @@
 
     }
 
+    /* Stagger the paper landing, then press each pin into the board. */
+    @media (prefers-reduced-motion: no-preference) {
+      .board-name,
+      .corkboard > .pinned-item,
+      .corkboard > .sticky {
+        animation: pin-paper-in 600ms cubic-bezier(.22, .75, .3, 1) both;
+        animation-delay: var(--pin-delay, 0ms);
+      }
+
+      .board-name { --pin-delay: 80ms; }
+      .corkboard > a[href="work.html"] { --pin-delay: 300ms; }
+      .corkboard > a[href="art.html"] { --pin-delay: 520ms; }
+      .graduation-note { --pin-delay: 740ms; }
+      .corkboard > a[href="food.html"] { --pin-delay: 960ms; }
+      .portfolio-pin { --pin-delay: 1180ms; }
+      .visitor-sticky { --pin-delay: 1400ms; }
+
+      .corkboard > .pinned-item > .pushpin,
+      .graduation-note > .tape,
+      .visitor-sticky::before {
+        animation: press-pin-in 300ms ease-out both;
+        animation-delay: calc(var(--pin-delay, 0ms) + 360ms);
+      }
+
+      @keyframes pin-paper-in {
+        from { opacity: 0; translate: 0 -28px; scale: 1.08; rotate: -4deg; }
+        65% { opacity: 1; translate: 0 3px; scale: .99; rotate: 1deg; }
+        to { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; }
+      }
+
+      @keyframes press-pin-in {
+        from { opacity: 0; translate: 0 -16px; scale: 1.5; }
+        70% { opacity: 1; translate: 0 2px; scale: .9; }
+        to { opacity: 1; translate: 0 0; scale: 1; }
+      }
+    }
+
   </style>
 </head>
 <body>
 
   <!-- CORKBOARD CONTENT -->
   <div id="corkboard-wrapper">
-    <div class="corkboard" title="Right-click the board or any photo to leave me a note.">
+    <div class="corkboard">
 
       <h1 class="board-name" aria-label="Isobel Bartels">
         <span class="board-name-first" aria-hidden="true"></span>
@@ -520,7 +557,7 @@
          style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 405px; left: 56%; z-index: 6; width: 174px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap">
-          <img src="images/sweetpotato.png" alt="Sweet potato dish" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
+          <img src="images/food-bowl.png" alt="Curry bowl with a gold spoon" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
         <span class="tooltip">food diary</span>
       </a>
@@ -635,18 +672,6 @@
       }
     }
     existingNotes.forEach(addNote);
-
-    board.addEventListener('contextmenu', (event) => {
-      event.preventDefault();
-      const bounds = board.getBoundingClientRect();
-      pendingNotePosition = {
-        left: Math.max(0, Math.min(80, ((event.clientX - bounds.left) / bounds.width) * 100)),
-        top: Math.max(0, Math.min(85, ((event.clientY - bounds.top) / bounds.height) * 100))
-      };
-      noteText.value = '';
-      noteDialog.showModal();
-      noteText.focus();
-    });
 
     document.getElementById('cancel-note').addEventListener('click', () => noteDialog.close());
 
