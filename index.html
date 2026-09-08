@@ -85,10 +85,10 @@
       min-height: 18px;
     }
 
-    /* hide the board until password is correct */
+    /* The board opens directly for every visitor. */
     #corkboard-wrapper {
       width: 100%;
-      display: none;
+      display: block;
       position: relative;
       z-index: 1;
     }
@@ -283,6 +283,29 @@
       z-index: 5;
     }
 
+    .graduation-note {
+      top: 80px;
+      left: 43%;
+      width: 185px;
+      padding: 24px 16px 18px;
+      background: #d1d490;
+      text-align: center;
+      transform: rotate(6deg);
+    }
+
+    .graduation-note h2 { font-size: 19px; font-weight: normal; }
+    .graduation-note strong { display: block; font-size: 42px; line-height: 1.15; margin-top: 10px; }
+    .graduation-note time { display: block; margin-top: 12px; font-size: 14px; }
+
+    @media (max-width: 1150px) {
+      .graduation-note { top: 350px; left: auto; right: 9%; }
+    }
+
+    @media (max-width: 650px) {
+      .corkboard:has(.graduation-note) { min-height: max(100vh, 1200px); }
+      .graduation-note { top: 940px; left: 12%; right: auto; }
+    }
+
     .visitor-sticky {
       width: 170px;
       min-height: 110px;
@@ -385,92 +408,74 @@
       margin-top: 12px;
     }
 
-    /* ---- NARROW SCREENS / PHONES ----
-       The board's items are absolutely positioned by percentage but sized in
-       fixed pixels, so below roughly 1150px they start colliding (the scatter
-       rotations widen each item's box, which is what makes them touch first).
-       Under that, drop out of absolute positioning entirely and let the items
-       flow and wrap. !important is needed to beat the per-item inline styles. */
+    .portfolio-pin {
+      top: 580px;
+      left: 36%;
+      width: 190px;
+      padding: 30px 18px 26px;
+      background: #fffdf7;
+      color: #2a2118;
+      text-align: center;
+      font-size: 23px;
+      box-shadow: 3px 5px 12px #0004;
+      --rotate: rotate(7deg);
+      transform: var(--rotate);
+    }
+    .corkboard { min-height: max(100vh, 760px); }
+
+    /* Keep the hand-pinned scatter at every screen width. */
     @media (max-width: 1150px) {
-      body {
-        padding: 0;
-      }
-
       .corkboard {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 40px 22px;
-        width: 100%;
-        min-height: 100vh;
-        padding: 266px 20px 48px;
-        align-content: flex-start;
+        min-height: max(100vh, 780px);
       }
-
-      /* max-width matters: the food-diary item has no inline width, so
-         without a cap its photo renders at full natural size */
-      .corkboard > .pinned-item {
-        position: relative;
-        top: auto !important;
-        right: auto !important;
-        bottom: auto !important;
+      .corkboard > a[href="art.html"] {
+        top: 150px !important;
         left: auto !important;
-        width: auto !important;
-        max-width: 200px;
-        transform: none !important;
+        right: 8%;
       }
-
-      /* the scatter rotation would clip against neighbours once items wrap */
-      a.pinned-item:hover {
-        transform: translateY(-4px) scale(1.03) !important;
+      .corkboard > a[href="work.html"] {
+        top: 340px !important;
+        left: 14% !important;
       }
-
-      .corkboard > .sticky {
-        max-width: 240px;
+      .corkboard > a[href="food.html"] {
+        top: 540px !important;
+        left: auto !important;
+        right: 19%;
       }
+    }
 
-      /* keep the images from overflowing a phone-width board */
-      .item-img-wrap {
-        max-width: 100%;
+    @media (max-width: 650px) {
+      .corkboard:has(.portfolio-pin) { min-height: max(100vh, 1410px); }
+      .portfolio-pin { top: 1220px; left: auto; right: 12%; }
+      .corkboard {
+        min-height: max(100vh, 930px);
       }
-
-      .item-img-wrap img.item-photo {
-        height: auto;
+      .corkboard > a[href="art.html"] {
+        top: 280px !important;
+        right: 10%;
+      }
+      .corkboard > a[href="work.html"] {
+        top: 460px !important;
+        left: 9% !important;
+      }
+      .corkboard > a[href="food.html"] {
+        top: 690px !important;
+        right: 14%;
       }
     }
 
     @media (max-width: 420px) {
-      .corkboard {
-        gap: 34px 14px;
-        padding: 244px 14px 44px;
-      }
-
       .board-name {
         left: 14px;
         transform: scale(0.96);
         transform-origin: top left;
       }
 
-      .corkboard > .pinned-item {
-        max-width: 100%;
-      }
     }
 
   </style>
 </head>
 <body>
-
-  <!-- PASSWORD OVERLAY -->
-  <div id="login-screen">
-    <div id="login-box">
-      <h2>Corkboard is Locked</h2>
-      <p>Enter the password to view the corkboard.</p>
-      <input type="password" id="password-input" placeholder="Enter password" />
-      <button type="button" onclick="checkPassword()">Submit</button>
-      <div id="login-error"></div>
-    </div>
-  </div>
 
   <!-- CORKBOARD CONTENT -->
   <div id="corkboard-wrapper">
@@ -481,13 +486,19 @@
         <span class="board-name-last" aria-hidden="true"></span>
       </h1>
 
+      <aside class="sticky graduation-note" aria-label="College graduation countdown">
+        <div class="tape" aria-hidden="true"></div>
+        <h2>college graduation!</h2>
+        <p><strong id="graduation-days">…</strong><span id="graduation-label">days</span></p>
+      </aside>
+
       <!-- Positions are deliberately uneven: no two items share a top edge and
            every rotation differs, so the board reads as pinned by hand rather
            than laid out on a grid. -->
 
       <!-- NAV ITEM 1: ART -->
       <a class="pinned-item" href="art.html"
-         style="--rotate: rotate(-7deg); transform: rotate(-7deg); top: 232px; left: 13%; z-index: 6; width: 150px;">
+         style="--rotate: rotate(11deg); transform: rotate(11deg); top: 115px; left: 72%; z-index: 6; width: 150px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap" style="width:150px; height:150px;">
           <img src="images/flowers.png" alt="Flowers" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
@@ -497,7 +508,7 @@
 
       <!-- NAV ITEM 2: PROFESSIONAL EXPERIENCE -->
       <a class="pinned-item" href="work.html"
-         style="--rotate: rotate(5deg); transform: rotate(5deg); top: 96px; left: 41%; z-index: 7; width: 145px;">
+         style="--rotate: rotate(-8deg); transform: rotate(-8deg); top: 310px; left: 21%; z-index: 7; width: 145px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap" style="width:145px; height:188px;">
           <img src="images/resume-thumb.png" alt="Resume" class="item-photo paper" style="display:block; width:100%; height:auto;">
@@ -507,12 +518,17 @@
 
       <!-- NAV ITEM 3: FOOD DIARY -->
       <a class="pinned-item" href="food.html"
-         style="--rotate: rotate(-3deg); transform: rotate(-3deg); top: 348px; left: 62%; z-index: 6; width: 145px;">
+         style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 405px; left: 56%; z-index: 6; width: 145px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap">
           <img src="images/sweetpotato.png" alt="Sweet potato dish" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
         <span class="tooltip">food diary</span>
+      </a>
+
+      <a class="pinned-item portfolio-pin" href="projects.html">
+        <span class="pushpin" aria-hidden="true"></span>
+        project<br>portfolio
       </a>
 
     </div><!-- /.corkboard -->
@@ -542,20 +558,22 @@
   </dialog>
 
   <script>
+    function updateGraduationCountdown() {
+      const now = new Date();
+      // Count calendar days, avoiding daylight-saving shifts and fractional days.
+      const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+      const days = Math.round((Date.UTC(2027, 4, 15) - today) / 86400000);
+      document.getElementById('graduation-days').textContent = days > 0 ? days : '🎓';
+      document.getElementById('graduation-label').textContent = days > 0
+        ? (days === 1 ? 'day' : 'days')
+        : (days === 0 ? 'graduation day!' : 'officially graduated!');
+    }
+    updateGraduationCountdown();
+    setInterval(updateGraduationCountdown, 60000);
+    document.addEventListener('visibilitychange', updateGraduationCountdown);
+
     // change this to whatever password you want
     const CORRECT_PASSWORD = "letmein";
-
-    function checkPassword() {
-      const entered = document.getElementById("password-input").value;
-      const error = document.getElementById("login-error");
-
-      if (entered === CORRECT_PASSWORD) {
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("corkboard-wrapper").style.display = "block";
-      } else {
-        error.textContent = "Wrong password.";
-      }
-    }
 
     const board = document.querySelector('.corkboard');
     const noteDialog = document.getElementById('note-dialog');
