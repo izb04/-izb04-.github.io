@@ -433,7 +433,7 @@
         right: 8%;
       }
       .corkboard > a[href="work.html"] {
-        top: 340px !important;
+        top: 380px !important;
         left: 14% !important;
       }
       .corkboard > a[href="food.html"] {
@@ -515,6 +515,62 @@
     @media (max-width: 650px) {
       .corkboard:has(.publications-pin) { min-height: max(100vh, 1680px); }
       .publications-pin { top: 1460px; left: 12%; right: auto; }
+    }
+
+    /* Larger pieces follow the proportions of the full corkboard reference. */
+    @media (min-width: 1151px) {
+      .corkboard { min-height: max(100vh, 66vw); }
+      .board-name { top: 24px; left: 3%; transform: scale(1.5); }
+      .graduation-note {
+        top: 5vw; left: 42%; width: 22vw;
+        padding: 2.2vw 1vw;
+      }
+      .graduation-note h2 { font-size: 1.9vw; }
+      .graduation-note strong { font-size: 5.5vw; }
+      #graduation-label { font-size: 2vw; }
+      .corkboard > a[href="art.html"] {
+        top: 4vw !important; left: 71% !important; width: 24vw !important;
+      }
+      .corkboard > a[href="work.html"] {
+        top: max(29vw, 440px) !important; left: 8% !important; width: 24vw !important;
+      }
+      .corkboard > a[href="food.html"] {
+        top: 29vw !important; left: 47% !important; width: 23vw !important;
+      }
+      .portfolio-pin { top: 45vw; left: 37%; width: 16vw; }
+      .portfolio-pin > .pushpin { top: 2.3vw; }
+      .publications-pin { top: 42vw; right: 5%; width: 20vw; padding: 2vw 1.2vw 1.5vw; }
+      .publications-pin .publication-title { font-size: 2.4vw; }
+      .publication-columns { height: 6vw; }
+      .pushpin { width: 26px; height: 26px; }
+    }
+    @media (min-width: 1400px) {
+      .board-name { transform: scale(1.8); }
+      .corkboard > a[href="work.html"] { top: max(29vw, 500px) !important; }
+    }
+    @media (min-width: 1650px) {
+      .board-name { transform: scale(2); }
+      .corkboard > a[href="work.html"] { top: max(29vw, 550px) !important; }
+    }
+    .corkboard > a[href="art.html"] .item-img-wrap,
+    .corkboard > a[href="work.html"] .item-img-wrap {
+      width: 100% !important;
+      height: auto !important;
+    }
+    @media (max-width: 1150px) {
+      .corkboard > a[href="art.html"],
+      .corkboard > a[href="work.html"],
+      .corkboard > a[href="food.html"] { width: 220px !important; }
+      .portfolio-pin { width: 210px; }
+      .publications-pin { width: 220px; }
+    }
+    @media (max-width: 650px) {
+      .corkboard > a[href="work.html"] { top: 650px !important; }
+      .corkboard > a[href="food.html"] { top: 1010px !important; }
+      .graduation-note { top: 1260px; }
+      .portfolio-pin { top: 1510px; }
+      .publications-pin { top: 1790px; }
+      .corkboard:has(.publications-pin) { min-height: max(100vh, 2020px); }
     }
 
     /* Stagger the paper landing, then press each pin into the board. */
