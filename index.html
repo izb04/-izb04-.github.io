@@ -612,7 +612,41 @@
       }
     }
 
+    .about-pin {
+      top: 350px; left: calc(3% + 480px); width: 9vw;
+      --rotate: rotate(-5deg);
+      transform: var(--rotate);
+      --pin-delay: 1620ms;
+    }
+    .about-pin:focus-visible { outline: 2px dashed #3a2210; outline-offset: 6px; }
+    @media (min-width: 1151px) {
+      .corkboard { min-height: max(100vh, 74vw); }
+      .corkboard > a[href="/food/"] { left: 62% !important; top: 33vw !important; }
+      .portfolio-pin { left: 40%; top: 56vw; }
+      .publications-pin { top: 53vw; }
+    }
+    @media (min-width: 1400px) {
+      .about-pin { top: 415px; left: calc(3% + 575px); }
+    }
+    @media (min-width: 1650px) {
+      .about-pin { top: 460px; left: calc(3% + 640px); }
+    }
+    @media (min-width: 651px) and (max-width: 1150px) {
+      .about-pin { top: 315px; left: 43%; width: 110px; }
+      .corkboard { min-height: max(100vh, 1200px); }
+    }
+    @media (max-width: 650px) {
+      .about-pin { top: 310px; left: auto; right: 8%; width: 100px; }
+      .corkboard > a[href="/art/"] { top: 710px !important; }
+      .corkboard > a[href="/work/"] { top: 1060px !important; }
+      .corkboard > a[href="/food/"] { top: 1420px !important; }
+      .graduation-note { top: 1660px; }
+      .portfolio-pin { top: 1910px; }
+      .publications-pin { top: 2200px; }
+      .corkboard:has(.about-pin) { min-height: max(100vh, 2540px); }
+    }
   </style>
+  <link rel="stylesheet" href="/photo-strip.css">
 </head>
 <body>
 
@@ -677,6 +711,16 @@
         <span class="pushpin" aria-hidden="true"></span>
         <span class="publication-title">publications</span>
         <span class="publication-columns" aria-hidden="true"></span>
+      </a>
+
+      <a class="pinned-item about-pin" href="/about/" aria-label="About">
+        <span class="pushpin" aria-hidden="true"></span>
+        <span class="photo-strip">
+          <span class="strip-frame"><img src="/images/headshot-1.jpg" alt="Isobel Bartels, portrait 1" width="512" height="640"></span>
+          <span class="strip-frame"><img src="/images/headshot-2.jpg" alt="Isobel Bartels, portrait 2" width="512" height="640"></span>
+          <span class="strip-frame"><img src="/images/headshot-3.jpg" alt="Isobel Bartels, portrait 3" width="512" height="640"></span>
+          <span class="strip-label">about</span>
+        </span>
       </a>
 
     </div><!-- /.corkboard -->

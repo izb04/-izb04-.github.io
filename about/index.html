@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isobel Bartels</title>
+  <link rel="stylesheet" href="/collage-header.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px 20px 72px; min-height: 100vh; font-family: 'Times New Roman', serif; background: #c9a173 url('/images/cork-seamless.png') repeat; background-size: 640px auto; }
+    main { max-width: 1100px; margin: auto; }
+    .back-link { color: #fffdf7; text-shadow: 0 1px 4px #000b; }
+    h1 { color: #fffdf7; text-align: center; font-size: 40px; text-shadow: 0 2px 10px #0008; }
+    .about-paper { position: relative; max-width: 680px; margin: 40px auto; padding: clamp(24px, 5vw, 44px); background: #fffdf0; color: #2a2118; box-shadow: 3px 5px 16px #0004; }
+    .about-paper::before { content: ''; position: absolute; top: -10px; left: calc(50% - 30px); width: 60px; height: 24px; background: #fff0b58c; transform: rotate(-4deg); }
+    h2 { font-size: 25px; margin: 0 0 16px; }
+    .hobbies { display: flex; flex-wrap: wrap; gap: 10px 24px; padding: 0; margin: 0 0 36px; list-style: none; font-size: 19px; line-height: 1.5; }
+    .colors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+    .color-card { margin: 0; }
+    .swatch { display: block; width: 100%; height: 120px; margin-bottom: 14px; }
+    .color-card figcaption { font-size: 18px; line-height: 1.5; }
+    .color-code { display: block; font-size: 15px; color: #6f6252; margin-top: 4px; }
+    @media (max-width: 480px) { .colors { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="collage-header" href="/" aria-label="Isobel Bartels — back to the board">
+    <img src="/images/isobel-bartels-cutout.png" alt="Isobel Bartels" width="2172" height="724">
+  </a>
+  <main>
+    <a class="back-link" href="/">← back to the board</a>
+    <h1>About</h1>
+    <section class="about-paper" aria-label="A little about me">
+      <h2>Hobbies</h2>
+      <ul class="hobbies">
+        <li>Travel</li>
+        <li>Cooking</li>
+        <li>Baking</li>
+        <li>Dancing</li>
+        <li>Lifting</li>
+        <li>Collaging</li>
+        <li>Watercolor painting</li>
+        <li>Hiking</li>
+      </ul>
+      <div class="colors">
+        <figure class="color-card">
+          <span class="swatch" style="background: #F23830;" aria-hidden="true"></span>
+          <figcaption>Favorite color to look at<span class="color-code">#F23830</span></figcaption>
+        </figure>
+        <figure class="color-card">
+          <span class="swatch" style="background: #1A4D20;" aria-hidden="true"></span>
+          <figcaption>Favorite color to wear<span class="color-code">#1A4D20</span></figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
