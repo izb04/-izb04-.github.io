@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isobel Bartels</title>
+  <link rel="stylesheet" href="/collage-header.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 32px 20px 72px;
+      font-family: 'Times New Roman', Times, serif;
+      color: #2a2118;
+      background: #c9a173 url('/images/cork-seamless.png') repeat;
+      background-size: 640px auto;
+    }
+    main { max-width: 1100px; margin: auto; }
+    .back-link { color: #fffdf7; text-shadow: 0 1px 4px #000b; }
+    h1 { text-align: center; color: #fffdf7; font-size: clamp(30px, 5vw, 40px); text-shadow: 0 2px 10px #0008; margin: 30px 0 44px; }
+    .publication-note {
+      position: relative;
+      width: min(700px, 100%);
+      margin: 0 auto;
+      padding: 36px 24px;
+      background: #fffdf0;
+      text-align: center;
+      font-size: 18px;
+      box-shadow: 3px 5px 12px #0004;
+      transform: rotate(-2deg);
+    }
+    .publication-note::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: calc(50% - 27px);
+      width: 54px;
+      height: 22px;
+      transform: rotate(5deg);
+      background: #fff0b58c;
+    }
+    .publication-note + .publication-note { margin-top: 44px; transform: rotate(1deg); }
+    .publication-note h2 { margin: 0 0 14px; font-size: clamp(24px, 4vw, 30px); line-height: 1.25; }
+    .publication-note .credit { color: #6f6252; font-size: 16px; margin: 0 0 22px; }
+    .publication-note a { color: #683f60; text-underline-offset: 4px; }
+    a:focus-visible { outline: 2px dashed #3a2210; outline-offset: 5px; }
+  </style>
+</head>
+<body>
+  <a class="collage-header" href="/" aria-label="Isobel Bartels — back to the board">
+    <img src="/images/isobel-bartels-cutout.png" alt="Isobel Bartels" width="2172" height="724">
+  </a>
+  <main>
+    <a class="back-link" href="/">← back to the board</a>
+    <h1>Publications</h1>
+    <article class="publication-note">
+      <h2>With|Standing</h2>
+      <p class="credit">Midstory · Site research</p>
+      <a href="https://www.midstory.org/with-standing/" target="_blank" rel="noopener noreferrer">Explore the project on Midstory ↗</a>
+    </article>
+    <article class="publication-note">
+      <h2>Ohio Traded Its Trains for Traffic. Can It Still Have A Passenger Rail Revival?</h2>
+      <p class="credit">Midstory · Author</p>
+      <a href="https://www.midstory.org/why-the-midwest-traded-its-trains-for-traffic/" target="_blank" rel="noopener noreferrer">Read the article on Midstory ↗</a>
+    </article>
+  </main>
+</body>
+</html>

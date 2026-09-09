@@ -2,63 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Isobel Bartels</title>
-  <link rel="stylesheet" href="collage-header.css">
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 32px 24px 72px; font-family: 'Times New Roman', serif; color: #2a2118; background: #c9a173 url('images/cork-seamless.png') repeat; background-size: 640px auto; }
-    main { max-width: 1050px; margin: auto; }
-    .back { color: #fffdf7; text-shadow: 0 1px 4px #000; }
-    h1 { text-align: center; color: #fffdf7; font-size: 40px; text-shadow: 0 2px 8px #0008; margin: 24px 0 40px; }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 36px; align-items: start; }
-    .photo { display: block; padding: 10px 10px 28px; background: #fffdf7; box-shadow: 0 6px 18px #0005; transform: rotate(-2deg); }
-    .photo:nth-child(2n) { transform: rotate(3deg); }
-    .photo:nth-child(3n) { transform: rotate(-4deg); }
-    .photo img { width: 100%; height: auto; display: block; }
-    .photo:hover { transform: rotate(0); }
-    .photo:focus-visible { outline: 3px dashed #fff; outline-offset: 6px; }
-    dialog { border: 0; padding: 42px 12px 12px; background: #fffdf7; max-width: 95vw; max-height: 95vh; }
-    dialog::backdrop { background: #140e08eb; }
-    dialog img { display: block; max-width: 85vw; max-height: 78vh; object-fit: contain; }
-    dialog button { position: absolute; right: 10px; top: 6px; border: 0; background: none; font-size: 26px; cursor: pointer; }
-    @media (max-width: 550px) { .gallery { grid-template-columns: 1fr; gap: 36px; } body { padding: 20px 28px 50px; } }
-  </style>
+  <meta http-equiv="refresh" content="0;url=/nails/">
+  <link rel="canonical" href="https://isobelbartels.com/nails/">
+  <script>location.replace('/nails/' + location.search + location.hash);</script>
 </head>
-<body>
-  <a class="collage-header" href="index.html" aria-label="Isobel Bartels — back to the board">
-    <img src="images/isobel-bartels-cutout.png" alt="Isobel Bartels" width="2172" height="724">
-  </a>
-  <main>
-    <a class="back" href="art.html">← back to art</a>
-    <h1>Nail Art</h1>
-    <div class="gallery">
-      <a class="photo" href="images/nails-pink.jpg"><img src="images/nails-pink.jpg" alt="Pink mix-and-match nails with hearts and an eight-ball design"></a>
-      <a class="photo" href="images/nails-3978.jpg"><img src="images/nails-3978.jpg" alt="Nail art collection photo 2" loading="lazy"></a>
-      <a class="photo" href="images/nails-3326.jpg"><img src="images/nails-3326.jpg" alt="Nail art collection photo 3" loading="lazy"></a>
-      <a class="photo" href="images/nails-1729.jpg"><img src="images/nails-1729.jpg" alt="Nail art collection photo 4" loading="lazy"></a>
-      <a class="photo" href="images/nails-1258.jpg"><img src="images/nails-1258.jpg" alt="Nail art collection photo 5" loading="lazy"></a>
-      <a class="photo" href="images/nails-charcoal.jpg"><img src="images/nails-charcoal.jpg" alt="Glossy charcoal nails with a gray scale pattern" loading="lazy"></a>
-      <a class="photo" href="images/nails-red.jpg"><img src="images/nails-red.jpg" alt="Red nails with a white patterned accent nail" loading="lazy"></a>
-    </div>
-  </main>
-  <dialog aria-label="Enlarged nail art photo">
-    <button type="button" aria-label="Close photo">×</button>
-    <img alt="">
-  </dialog>
-  <script>
-    const viewer = document.querySelector('dialog');
-    const enlarged = viewer.querySelector('img');
-    document.querySelectorAll('.photo').forEach(photo => {
-      photo.addEventListener('click', event => {
-        event.preventDefault();
-        enlarged.src = photo.href;
-        enlarged.alt = photo.querySelector('img').alt;
-        viewer.showModal();
-      });
-    });
-    viewer.querySelector('button').addEventListener('click', () => viewer.close());
-    viewer.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
-  </script>
-</body>
+<body><a href="/nails/">Continue to nails</a></body>
 </html>

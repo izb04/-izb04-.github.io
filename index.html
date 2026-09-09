@@ -104,7 +104,7 @@
       padding: 60px 40px 80px;
       background-color: #c9a173;
       /* A seamless version of the original cork texture prevents tile lines. */
-      background-image: url("images/cork-seamless.png");
+      background-image: url("/images/cork-seamless.png");
       background-repeat: repeat;
       background-size: 640px auto;
       box-shadow: inset 0 2px 8px rgba(0,0,0,0.35);
@@ -125,7 +125,7 @@
 
     .board-name span {
       display: block;
-      background-image: url("images/isobel-bartels-cutout.png");
+      background-image: url("/images/isobel-bartels-cutout.png");
       background-repeat: no-repeat;
       background-size: 500px auto;
     }
@@ -427,16 +427,16 @@
       .corkboard {
         min-height: max(100vh, 780px);
       }
-      .corkboard > a[href="art.html"] {
+      .corkboard > a[href="/art/"] {
         top: 150px !important;
         left: auto !important;
         right: 8%;
       }
-      .corkboard > a[href="work.html"] {
+      .corkboard > a[href="/work/"] {
         top: 380px !important;
         left: 14% !important;
       }
-      .corkboard > a[href="food.html"] {
+      .corkboard > a[href="/food/"] {
         top: 540px !important;
         left: auto !important;
         right: 19%;
@@ -449,15 +449,15 @@
       .corkboard {
         min-height: max(100vh, 930px);
       }
-      .corkboard > a[href="art.html"] {
+      .corkboard > a[href="/art/"] {
         top: 280px !important;
         right: 10%;
       }
-      .corkboard > a[href="work.html"] {
+      .corkboard > a[href="/work/"] {
         top: 495px !important;
         left: 9% !important;
       }
-      .corkboard > a[href="food.html"] {
+      .corkboard > a[href="/food/"] {
         top: 760px !important;
         right: 14%;
       }
@@ -528,13 +528,13 @@
       .graduation-note h2 { font-size: 1.9vw; }
       .graduation-note strong { font-size: 5.5vw; }
       #graduation-label { font-size: 2vw; }
-      .corkboard > a[href="art.html"] {
+      .corkboard > a[href="/art/"] {
         top: 4vw !important; left: 71% !important; width: 22vw !important;
       }
-      .corkboard > a[href="work.html"] {
+      .corkboard > a[href="/work/"] {
         top: max(29vw, 440px) !important; left: 8% !important; width: 22vw !important;
       }
-      .corkboard > a[href="food.html"] {
+      .corkboard > a[href="/food/"] {
         top: 29vw !important; left: 47% !important; width: 21vw !important;
       }
       .portfolio-pin { top: 45vw; left: 37%; width: 17.5vw; }
@@ -546,28 +546,28 @@
     }
     @media (min-width: 1400px) {
       .board-name { transform: scale(1.8); }
-      .corkboard > a[href="work.html"] { top: max(29vw, 500px) !important; }
+      .corkboard > a[href="/work/"] { top: max(29vw, 500px) !important; }
     }
     @media (min-width: 1650px) {
       .board-name { transform: scale(2); }
-      .corkboard > a[href="work.html"] { top: max(29vw, 550px) !important; }
+      .corkboard > a[href="/work/"] { top: max(29vw, 550px) !important; }
     }
-    .corkboard > a[href="art.html"] .item-img-wrap,
-    .corkboard > a[href="work.html"] .item-img-wrap {
+    .corkboard > a[href="/art/"] .item-img-wrap,
+    .corkboard > a[href="/work/"] .item-img-wrap {
       width: 100% !important;
       height: auto !important;
     }
     @media (max-width: 1150px) {
-      .corkboard > a[href="art.html"],
-      .corkboard > a[href="work.html"],
-      .corkboard > a[href="food.html"] { width: 202px !important; }
+      .corkboard > a[href="/art/"],
+      .corkboard > a[href="/work/"],
+      .corkboard > a[href="/food/"] { width: 202px !important; }
       .portfolio-pin { width: 230px; }
       .portfolio-pin > .pushpin { top: 30px; }
       .publications-pin { width: 202px; }
     }
     @media (max-width: 650px) {
-      .corkboard > a[href="work.html"] { top: 650px !important; }
-      .corkboard > a[href="food.html"] { top: 1010px !important; }
+      .corkboard > a[href="/work/"] { top: 650px !important; }
+      .corkboard > a[href="/food/"] { top: 1010px !important; }
       .graduation-note { top: 1260px; }
       .portfolio-pin { top: 1510px; }
       .publications-pin { top: 1790px; }
@@ -584,10 +584,10 @@
       }
 
       .board-name { --pin-delay: 80ms; }
-      .corkboard > a[href="work.html"] { --pin-delay: 300ms; }
-      .corkboard > a[href="art.html"] { --pin-delay: 520ms; }
+      .corkboard > a[href="/work/"] { --pin-delay: 300ms; }
+      .corkboard > a[href="/art/"] { --pin-delay: 520ms; }
       .graduation-note { --pin-delay: 740ms; }
-      .corkboard > a[href="food.html"] { --pin-delay: 960ms; }
+      .corkboard > a[href="/food/"] { --pin-delay: 960ms; }
       .portfolio-pin { --pin-delay: 1180ms; }
       .publications-pin { --pin-delay: 1400ms; }
       .visitor-sticky { --pin-delay: 1620ms; }
@@ -636,44 +636,44 @@
            than laid out on a grid. -->
 
       <!-- NAV ITEM 1: ART -->
-      <a class="pinned-item" href="art.html"
+      <a class="pinned-item" href="/art/"
          style="--rotate: rotate(11deg); transform: rotate(11deg); top: 115px; left: 72%; z-index: 6; width: 174px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap" style="width:174px;">
-          <img src="images/good-reminder.png" alt="Good Reminder paper collage" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
+          <img src="/images/good-reminder.png" alt="Good Reminder paper collage" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
         <span class="tooltip">art</span>
       </a>
 
       <!-- NAV ITEM 2: PROFESSIONAL EXPERIENCE -->
-      <a class="pinned-item" href="work.html"
+      <a class="pinned-item" href="/work/"
          style="--rotate: rotate(-8deg); transform: rotate(-8deg); top: 310px; left: 21%; z-index: 7; width: 174px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap" style="width:174px; height:226px;">
-          <img src="images/resume-thumb.png" alt="Resume" class="item-photo paper" style="display:block; width:100%; height:auto;">
+          <img src="/images/resume-thumb.png" alt="Resume" class="item-photo paper" style="display:block; width:100%; height:auto;">
         </div>
         <span class="tooltip">professional experience</span>
       </a>
 
       <!-- NAV ITEM 3: FOOD DIARY -->
-      <a class="pinned-item" href="food.html"
+      <a class="pinned-item" href="/food/"
          style="--rotate: rotate(-4deg); transform: rotate(-4deg); top: 405px; left: 56%; z-index: 6; width: 174px;">
         <div class="pushpin"></div>
         <div class="item-img-wrap">
-          <img src="images/food-bowl.png" alt="Curry bowl with a gold spoon" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
+          <img src="/images/food-bowl.png" alt="Curry bowl with a gold spoon" class="item-photo" style="display:block; max-width:100%; height:auto; border-radius:3px;">
         </div>
         <span class="tooltip">food diary</span>
       </a>
 
-      <a class="pinned-item portfolio-pin" href="projects.html">
+      <a class="pinned-item portfolio-pin" href="/projects/">
         <span class="pushpin" aria-hidden="true"></span>
         <div class="item-img-wrap">
-          <img src="images/project-portfolio.png" alt="Project portfolio" class="item-photo">
+          <img src="/images/project-portfolio.png" alt="Project portfolio" class="item-photo">
         </div>
         <span class="tooltip">project portfolio</span>
       </a>
 
-      <a class="pinned-item publications-pin" href="publications.html">
+      <a class="pinned-item publications-pin" href="/publications/">
         <span class="pushpin" aria-hidden="true"></span>
         <span class="publication-title">publications</span>
         <span class="publication-columns" aria-hidden="true"></span>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isobel Bartels</title>
+  <link rel="stylesheet" href="/collage-header.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 32px 20px 72px;
+      font-family: 'Times New Roman', Times, serif;
+      color: #2a2118;
+      background: #c9a173 url('/images/cork-seamless.png') repeat;
+      background-size: 640px auto;
+    }
+    main { max-width: 1100px; margin: auto; }
+    .back-link { color: #fffdf7; text-shadow: 0 1px 4px #000b; }
+    h1 { text-align: center; color: #fffdf7; font-size: clamp(30px, 5vw, 40px); text-shadow: 0 2px 10px #0008; margin: 30px 0 44px; }
+    .project {
+      position: relative;
+      width: min(800px, 100%);
+      margin: 0 auto;
+      padding: 16px 16px 28px;
+      background: #fffdf7;
+      font-size: 17px;
+      line-height: 1.6;
+      box-shadow: 3px 5px 12px #0004;
+    }
+    .project + .project { margin-top: 48px; }
+    .project::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: calc(50% - 27px);
+      width: 54px;
+      height: 22px;
+      transform: rotate(5deg);
+      background: #fff0b58c;
+    }
+    .project img { display: block; width: 100%; height: auto; }
+    .project-copy { padding: 18px 12px 0; }
+    .project h2 { font-size: 28px; line-height: 1.2; margin: 12px 0; }
+    .project p { margin: 12px 0; }
+    .project .award { display: inline-block; background: #d1d490; padding: 3px 12px; transform: rotate(-3deg); font-size: 18px; }
+    .project .context { color: #6f6252; font-size: 16px; }
+    .project a { color: #683f60; text-underline-offset: 4px; }
+    .project a:focus-visible { outline: 2px dashed #683f60; outline-offset: 4px; }
+  </style>
+</head>
+<body>
+  <a class="collage-header" href="/" aria-label="Isobel Bartels — back to the board">
+    <img src="/images/isobel-bartels-cutout.png" alt="Isobel Bartels" width="2172" height="724">
+  </a>
+  <main>
+    <a class="back-link" href="/">← back to the board</a>
+    <h1>Project Portfolio</h1>
+    <article class="project">
+      <div class="project-copy">
+        <h2>Investor Sentiment in Social Media</h2>
+        <p class="context">ISA 381 · Concepts in Business Programming · Final Project · Fall 2025</p>
+        <p>For this team project, we used Python to analyze investor sentiment in BitcoinTalk forum posts. We built a positive-and-negative word-list scoring approach and compared it with VADER sentiment analysis.</p>
+        <p>Using pandas, Plotly, and Matplotlib, we explored daily discussion volume, grouped posts into positive, neutral, and negative categories, and compared average sentiment scores across the two methods.</p>
+        <p class="context">Python · pandas · VADER · Plotly · Matplotlib</p>
+        <a href="/documents/isa-381-final.ipynb" download>Download notebook (.ipynb)</a>
+      </div>
+    </article>
+    <article class="project">
+      <div class="project-copy">
+        <h2>Future of Work: Alternative Career Pathways</h2>
+        <p class="context">MGT 291 · Introduction to Management &amp; Leadership · Spring 2025</p>
+        <p>Our team researched how alternative education and career pathways are reshaping access to employment. The paper examines vocational programs, boot camps, certifications, and skills-based hiring alongside traditional college degrees.</p>
+        <p>We compared research from before and after 2020, considering educational costs, career adaptability, and gaps in long-term outcome research and student support.</p>
+        <a href="/documents/future-of-work-spring-2025.pdf" target="_blank" rel="noopener">Read report (PDF) ↗</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-copy">
+        <h2>Havelka Clubs: Golf Course Database</h2>
+        <p class="context">ISA 345 · Database Systems and Data Warehousing · Spring 2025</p>
+        <p>Our team designed a relational database for a public golf course, supporting customer records, tee time reservations, cart assignments, and clubhouse sales.</p>
+        <p>We translated business rules into an entity-relationship model, documented a design normalized to third normal form, and used SQL to define tables, maintain records, and retrieve business information.</p>
+        <p class="context">SQL · Relational database design · ER modeling · Normalization</p>
+        <a href="/documents/database-final-spring-2025.docx" download>Download final report (.docx)</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-copy">
+        <h2>Case Competition</h2>
+        <p class="context">Alpha Kappa Psi · Fall 2024</p>
+        <span class="award">1st place</span>
+        <a href="/documents/case-competition-fall-2024.pdf" target="_blank" rel="noopener" aria-label="View case competition presentation (PDF, opens in a new tab)">
+          <img src="/images/case-competition-cover.png" alt="Empowering Early Education — Columbus Early Learning Centers presentation cover">
+        </a>
+        <p>Completed with my team while rushing Alpha Kappa Psi, this consulting project identified opportunities for growth and fundraising for Columbus Early Learning Centers, a nonprofit in Columbus, Ohio.</p>
+        <p>We explored corporate partnerships, community engagement, and ways to reduce operating costs. Our team took first place in the competition, judged by Boston Consulting Group.</p>
+        <a href="/documents/case-competition-fall-2024.pdf" target="_blank" rel="noopener">View presentation (PDF) ↗</a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-copy">
+        <h2>Business Process Management: MU Maintenance</h2>
+        <p class="context">ISA 235 · Information Technology and the Intelligent Enterprise · Fall 2024</p>
+        <p>Our team studied Miami University’s maintenance-request process, interviewed the Director of Maintenance, and mapped the existing workflow to identify communication and scheduling problems.</p>
+        <p>We proposed a maintenance app with real-time notifications and an improved scheduling portal. The project combined current and proposed process models, app mockups, and a cost-benefit analysis of the recommended changes.</p>
+        <p class="context">BPMN · Process analysis · Interface mockups · Cost-benefit analysis</p>
+        <a href="/documents/business-process-management-fall-2024.docx" download>Download team report (.docx)</a>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

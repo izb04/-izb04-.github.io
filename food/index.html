@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Isobel Bartels</title>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #2a2118;
+      --muted: #6f6252;
+      --rule: #d8cbb8;
+      --paper: #fffdf7;
+      --accent: #a15f78;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #c9a173;
+      background-image: url("/images/cork.jpg");
+      background-size: 640px auto;
+      background-repeat: repeat;
+      font-family: 'Times New Roman', Times, serif;
+      color: var(--ink);
+      padding: 32px 20px 72px;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; }
+
+    .back-link {
+      display: inline-block;
+      color: #fffdf7;
+      font-size: 15px;
+      text-decoration: none;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+      margin-bottom: 22px;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+
+    .page-title {
+      text-align: center;
+      color: #fffdf7;
+      font-size: 40px;
+      margin-bottom: 34px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+
+    /* ---- the entries, pinned to the board ---- */
+    .pieces {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 44px 34px;
+    }
+
+    .piece {
+      position: relative;
+      width: 320px;
+      max-width: 100%;
+      background: #fff;
+      padding: 12px 12px 0;
+      border: none;
+      font: inherit;
+      color: inherit;
+      text-align: center;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.4);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    /* only entries with a real photo react to the pointer */
+    .piece.has-photo { cursor: pointer; }
+
+    .piece.has-photo:hover,
+    .piece.has-photo:focus-visible {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 34px rgba(0,0,0,0.48);
+      outline: none;
+    }
+
+    /* pushpin, same one as the board */
+    .piece::before {
+      content: '';
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b);
+      box-shadow: 0 3px 7px rgba(0,0,0,0.5), inset 0 -1px 3px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+
+    .piece img {
+      display: block;
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+    }
+
+    /* empty slot, waiting for a photo */
+    .photo-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 230px;
+      background: #f6f1e8;
+      border: 2px dashed var(--rule);
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    .photo-slot .slot-icon {
+      font-size: 30px;
+      opacity: 0.55;
+    }
+
+    figcaption { padding: 11px 8px 14px; }
+
+    .dish { font-size: 17px; }
+
+    .meta {
+      display: block;
+      margin-top: 4px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    .meta .sep { margin: 0 6px; opacity: 0.6; }
+
+    .note {
+      display: block;
+      margin-top: 5px;
+      font-size: 13.5px;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* ---- lightbox ---- */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 14, 8, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      padding: 28px 20px;
+      z-index: 100;
+      cursor: zoom-out;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 100%;
+      max-height: calc(100vh - 130px);
+      width: auto;
+      height: auto;
+      background: #fff;
+      padding: 8px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+    }
+
+    #lightbox-caption {
+      color: #fdf6ec;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 22px;
+      background: none;
+      border: none;
+      color: #fdf6ec;
+      font-family: inherit;
+      font-size: 30px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 6px 10px;
+    }
+
+    #lightbox-close:hover { color: #fff; }
+
+    @media (max-width: 700px) {
+      body { padding: 18px 12px 48px; }
+      .page-title { font-size: 30px; }
+      .pieces { gap: 36px 20px; }
+      .piece { width: 100%; }
+    }
+  </style>
+  <link rel="stylesheet" href="/collage-header.css">
+</head>
+<body>
+
+  <a class="collage-header" href="/" aria-label="Isobel Bartels — back to the board">
+    <img src="/images/isobel-bartels-cutout.png" alt="Isobel Bartels" width="2172" height="724">
+  </a>
+
+  <div class="wrap">
+    <a class="back-link" href="/">&larr; back to the board</a>
+
+    <h1 class="page-title">Food Diary</h1>
+
+    <div class="pieces">
+
+      <figure class="piece has-photo" role="button" tabindex="0"
+              data-full="/images/food-sacree-fleur.jpg" data-title="Sacrée Fleur — Paris, France">
+        <img src="/images/food-sacree-fleur.jpg" alt="A steak dinner at Sacrée Fleur">
+        <figcaption>
+          <span class="dish">Sacrée Fleur</span>
+          <span class="meta">February 14, 2026<span class="sep">·</span>Paris, France</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece has-photo" role="button" tabindex="0"
+              data-full="/images/food-dobrumba.jpg" data-title="Dobrumba — Budapest, Hungary">
+        <img src="/images/food-dobrumba.jpg" alt="A meal at Dobrumba">
+        <figcaption>
+          <span class="dish">Dobrumba</span>
+          <span class="meta">March 29, 2026<span class="sep">·</span>Budapest, Hungary</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece has-photo" role="button" tabindex="0"
+              data-full="/images/food-bascarija.jpg" data-title="Baščaršija — Ljubljana, Slovenia">
+        <img src="/images/food-bascarija.jpg" alt="A meal at Baščaršija">
+        <figcaption>
+          <span class="dish">Baščaršija</span>
+          <span class="meta">March 30, 2026<span class="sep">·</span>Ljubljana, Slovenia</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece has-photo" role="button" tabindex="0"
+              data-full="/images/food-vino-ribe.jpg" data-title="Vino &amp; Ribe — Ljubljana, Slovenia">
+        <img src="/images/food-vino-ribe.jpg" alt="Seafood at Vino and Ribe">
+        <figcaption>
+          <span class="dish">Vino &amp; Ribe</span>
+          <span class="meta">March 30, 2026<span class="sep">·</span>Ljubljana, Slovenia</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece has-photo" role="button" tabindex="0"
+              data-full="/images/food-bunsik.jpg" data-title="Bunsik — Vienna, Austria">
+        <img src="/images/food-bunsik.jpg" alt="A meal at Bunsik">
+        <figcaption>
+          <span class="dish">Bunsik</span>
+          <span class="meta">April 3, 2026<span class="sep">·</span>Vienna, Austria</span>
+        </figcaption>
+      </figure>
+
+      <figure class="piece has-photo" role="button" tabindex="0"
+              data-full="/images/food-rice-blvd.jpg" data-title="Rice Blvd — Toledo, Ohio">
+        <img src="/images/food-rice-blvd.jpg" alt="A meal at Rice Blvd in Toledo, Ohio" loading="lazy">
+        <figcaption>
+          <span class="dish">Rice Blvd</span>
+          <span class="meta">as often as possible<span class="sep">·</span>Toledo, Ohio</span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+
+  <div id="lightbox" aria-hidden="true">
+    <button type="button" id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-caption"></p>
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbCap = document.getElementById('lightbox-caption');
+    let lastFocused = null;
+
+    function openLightbox(piece) {
+      lastFocused = piece;
+      lbImg.src = piece.dataset.full;
+      lbImg.alt = piece.querySelector('img').alt;
+      lbCap.textContent = piece.dataset.title;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('lightbox-close').focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    // empty slots have nothing to enlarge, so only wire up filled entries
+    document.querySelectorAll('.piece.has-photo').forEach(piece => {
+      piece.addEventListener('click', () => openLightbox(piece));
+      piece.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(piece);
+        }
+      });
+    });
+
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
