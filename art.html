@@ -58,17 +58,21 @@
 
     /* ---- the pieces, pinned to the board ---- */
     .pieces {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 44px 38px;
+      max-width: 880px;
+      margin: 0 auto;
+      columns: 2;
+      column-gap: 28px;
+      padding-top: 16px;
     }
 
     .piece {
       position: relative;
-      width: 420px;
+      display: inline-block;
+      vertical-align: top;
+      width: 100%;
       max-width: 100%;
+      break-inside: avoid;
+      margin: 0 0 30px;
       background: #fff;
       padding: 12px 12px 0;
       border: none;
@@ -125,7 +129,7 @@
       position: relative;
       isolation: isolate;
       width: min(280px, 80%);
-      margin: 72px auto 20px;
+      margin: 36px auto 20px;
       padding: 10px 10px 18px;
       background: #fffdf7;
       color: var(--ink);
@@ -207,7 +211,7 @@
     @media (max-width: 700px) {
       body { padding: 18px 12px 48px; }
       .page-title { font-size: 30px; }
-      .pieces { gap: 36px 20px; }
+      .pieces { columns: 1; max-width: 480px; }
       .piece { width: 100%; }
     }
   </style>
