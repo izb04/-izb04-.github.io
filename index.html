@@ -415,9 +415,13 @@
       --rotate: rotate(7deg);
       transform: var(--rotate);
     }
+    .portfolio-pin .item-img-wrap,
+    .portfolio-pin img.item-photo {
+      width: 100%;
+    }
     .portfolio-pin > .pushpin {
-      top: 26px;
-      left: 23%;
+      top: 20%;
+      left: 27%;
     }
 
     .corkboard { min-height: max(100vh, 800px); }
@@ -538,7 +542,6 @@
         top: 29vw !important; left: 47% !important; width: 21vw !important;
       }
       .portfolio-pin { top: 45vw; left: 37%; width: 17.5vw; }
-      .portfolio-pin > .pushpin { top: 2.5vw; }
       .publications-pin { top: 42vw; right: 5%; width: 18.5vw; padding: 1.85vw 1.1vw 1.4vw; }
       .publications-pin .publication-title { font-size: 2.2vw; }
       .publication-columns { height: 5.5vw; }
@@ -562,7 +565,6 @@
       .corkboard > a[href="/work/"],
       .corkboard > a[href="/food/"] { width: 202px !important; }
       .portfolio-pin { width: 230px; }
-      .portfolio-pin > .pushpin { top: 30px; }
       .publications-pin { width: 202px; }
     }
     @media (max-width: 650px) {

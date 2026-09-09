@@ -11,16 +11,30 @@
     main { max-width: 1100px; margin: auto; }
     .back-link { color: #fffdf7; text-shadow: 0 1px 4px #000b; }
     h1 { color: #fffdf7; text-align: center; font-size: 40px; text-shadow: 0 2px 10px #0008; }
-    .about-paper { position: relative; max-width: 680px; margin: 40px auto; padding: clamp(24px, 5vw, 44px); background: #fffdf0; color: #2a2118; box-shadow: 3px 5px 16px #0004; }
-    .about-paper::before { content: ''; position: absolute; top: -10px; left: calc(50% - 30px); width: 60px; height: 24px; background: #fff0b58c; transform: rotate(-4deg); }
-    h2 { font-size: 25px; margin: 0 0 16px; }
-    .hobbies { display: flex; flex-wrap: wrap; gap: 10px 24px; padding: 0; margin: 0 0 36px; list-style: none; font-size: 19px; line-height: 1.5; }
-    .colors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
-    .color-card { margin: 0; }
-    .swatch { display: block; width: 100%; height: 120px; margin-bottom: 14px; }
-    .color-card figcaption { font-size: 18px; line-height: 1.5; }
+    .about-board { columns: 3; column-gap: 32px; padding: 18px 12px; }
+    .about-pin { display: inline-block; position: relative; width: 100%; margin: 0 0 34px; padding: 28px 22px 24px; break-inside: avoid; background: #fffdf0; color: #2a2118; box-shadow: 3px 5px 14px #0004; transform: rotate(-2deg); }
+    .about-pin:nth-child(even) { transform: rotate(2deg); }
+    .about-pin::before { content: ''; position: absolute; top: -10px; left: calc(50% - 10px); width: 20px; height: 20px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff6b6b, #c0392b); box-shadow: 0 3px 5px #0006; }
+    .hometown { background: #e9e0f1; }
+    .drink { background: #e5e9bd; padding-bottom: 98px; margin-bottom: 125px; }
+    .drink img { position: absolute; display: block; width: 155px; height: auto; right: 4px; bottom: -82px; transform: rotate(9deg); z-index: 2; filter: drop-shadow(2px 3px 2px #0004); }
+
+    .music { background: #e1edf1; }
+    .watching { background: #e9e0f1; }
+    .wondering { background: #f5e1cb; }
+    h2 { font-size: 24px; margin: 0 0 16px; }
+    p { font-size: 18px; line-height: 1.5; margin: 0; }
+    .hobbies { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 0; margin: 0; list-style: none; font-size: 18px; line-height: 1.5; }
+    .swatch { display: block; width: 100%; height: 140px; margin-bottom: 14px; }
+    figcaption { font-size: 18px; line-height: 1.5; }
     .color-code { display: block; font-size: 15px; color: #6f6252; margin-top: 4px; }
-    @media (max-width: 480px) { .colors { grid-template-columns: 1fr; } }
+    .book img { display: block; width: min(190px, 100%); height: auto; margin: 0 auto 18px; box-shadow: 2px 4px 8px #0003; }
+    .songs { list-style: none; padding: 0; margin: 0; }
+    .songs li { font-size: 19px; line-height: 1.5; }
+    .songs li + li { margin-top: 18px; }
+    .artist { display: block; color: #6f6252; font-size: 16px; margin-top: 4px; }
+    @media (max-width: 900px) { .about-board { columns: 2; } }
+    @media (max-width: 580px) { .about-board { columns: 1; max-width: 420px; margin: auto; } }
   </style>
 </head>
 <body>
@@ -30,29 +44,56 @@
   <main>
     <a class="back-link" href="/">← back to the board</a>
     <h1>About</h1>
-    <section class="about-paper" aria-label="A little about me">
-      <h2>Hobbies</h2>
-      <ul class="hobbies">
-        <li>Travel</li>
-        <li>Cooking</li>
-        <li>Baking</li>
-        <li>Dancing</li>
-        <li>Lifting</li>
-        <li>Collaging</li>
-        <li>Watercolor painting</li>
-        <li>Hiking</li>
-      </ul>
-      <div class="colors">
-        <figure class="color-card">
-          <span class="swatch" style="background: #F23830;" aria-hidden="true"></span>
-          <figcaption>Favorite color to look at<span class="color-code">#F23830</span></figcaption>
-        </figure>
-        <figure class="color-card">
-          <span class="swatch" style="background: #1A4D20;" aria-hidden="true"></span>
-          <figcaption>Favorite color to wear<span class="color-code">#1A4D20</span></figcaption>
-        </figure>
-      </div>
-    </section>
+    <div class="about-board">
+      <section class="about-pin hometown">
+        <h2>Hometown</h2>
+        <p>Toledo, Ohio</p>
+      </section>
+      <section class="about-pin">
+        <h2>Hobbies</h2>
+        <ul class="hobbies">
+          <li>Travel</li><li>Cooking</li><li>Baking</li><li>Dancing</li><li>Lifting</li>
+          <li>Collaging</li><li>Watercolor painting</li><li>Hiking</li><li>Fashion</li><li>Jewelry Making</li>
+        </ul>
+      </section>
+      <figure class="about-pin">
+        <span class="swatch" style="background: #F23830;" aria-hidden="true"></span>
+        <figcaption>Favorite color to look at<span class="color-code">#F23830</span></figcaption>
+      </figure>
+      <figure class="about-pin">
+        <span class="swatch" style="background: #1A4D20;" aria-hidden="true"></span>
+        <figcaption>Favorite color to wear<span class="color-code">#1A4D20</span></figcaption>
+      </figure>
+      <section class="about-pin drink">
+        <h2>Currently drinking</h2>
+        <img src="/images/matcha-sticker.png" alt="Two iced matcha tonics topped with whipped cream" width="626" height="650" loading="lazy">
+        <p><strong>Matcha tonics</strong><br>Soda water, matcha, and maple syrup. Whipped cream is optional, but suggested.</p>
+      </section>
+      <section class="about-pin book">
+        <h2>Currently reading</h2>
+        <img src="/images/networks-of-trust.png" alt="Cover of Networks of Trust by Anthony Simon Laden" width="1213" height="1874" loading="lazy">
+        <p><strong>Networks of Trust</strong><br>The Social Costs of College and What We Can Do About Them<span class="artist">Anthony Simon Laden</span></p>
+      </section>
+      <section class="about-pin music">
+        <h2>On repeat</h2>
+        <ul class="songs">
+          <li>Fall In Love<span class="artist">Phantogram</span></li>
+          <li>Ease My Mind<span class="artist">Chris Lake &amp; Abel Balder</span></li>
+        </ul>
+      </section>
+      <section class="about-pin watching">
+        <h2>Currently watching</h2>
+        <p>Game of Thrones</p>
+      </section>
+      <section class="about-pin wondering">
+        <h2>Currently wondering</h2>
+        <p>Is making sourdough worth the time when I can buy a loaf for $5?</p>
+      </section>
+      <section class="about-pin fun-fact">
+        <h2>Fun fact</h2>
+        <p>Above average whistler</p>
+      </section>
+    </div>
   </main>
 </body>
 </html>
