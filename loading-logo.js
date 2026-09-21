@@ -1,5 +1,9 @@
 // A traveling wave keeps the original collage intact, including its paper edges.
 (() => {
+  let started = false;
+  function startWave() {
+  if (started) return;
+  started = true;
   const host = document.querySelector('.site-loader-logo');
   if (!host) return;
   const original = host.querySelector('img');
@@ -21,7 +25,7 @@
     slice.setAttribute('viewBox', `${i * width} 0 ${width + 0.5} 724`);
     slice.setAttribute('overflow', 'hidden');
     const image = document.createElementNS(ns, 'image');
-    image.setAttribute('href', '/images/isobel-bartels-cutout.png');
+    image.setAttribute('href', '/images/isobel-bartels-logo.webp');
     image.setAttribute('width', '2172');
     image.setAttribute('height', '724');
     slice.append(image);
@@ -33,4 +37,7 @@
   ready.then(() => {
     if (host.isConnected) host.replaceChildren(svg);
   }).catch(() => {});
+  }
+  if (document.documentElement.classList.contains('site-loading')) startWave();
+  else document.addEventListener('show-site-loader', startWave, { once: true });
 })();

@@ -1,25 +1,43 @@
 (() => {
   const root = document.documentElement;
-  root.classList.add('site-loading');
+  const sessionKey = 'isobel-visited';
+  let firstVisit = true;
+  try {
+    firstVisit = sessionStorage.getItem(sessionKey) !== '1';
+    sessionStorage.setItem(sessionKey, '1');
+  } catch (_) { /* Browsing still works when storage is unavailable. */ }
+  const internalNavigation = document.referrer && new URL(document.referrer).origin === location.origin;
+  const navigation = performance.getEntriesByType('navigation')[0];
+  const eligible = location.pathname === '/' && firstVisit && !internalNavigation && navigation?.type !== 'back_forward';
+  let finished = false;
+  let showTimer;
+  let deadline;
+  root.classList.add(eligible ? 'site-pending' : 'site-instant');
   root.style.setProperty('--cork-texture', 'none');
 
-  let revealed = false;
   function reveal() {
-    if (revealed) return;
-    revealed = true;
+    if (finished) return;
+    finished = true;
+    clearTimeout(showTimer);
     clearTimeout(deadline);
-    root.classList.add('site-revealing');
-    root.classList.remove('site-loading');
+    const wasVisible = root.classList.contains('site-loading');
+    if (wasVisible) root.classList.add('site-revealing');
+    root.classList.remove('site-pending', 'site-loading');
     setTimeout(() => {
       root.classList.remove('site-revealing');
       document.querySelector('.site-loader')?.remove();
-    }, 400);
+    }, wasVisible ? 200 : 0);
   }
-  // A failed or slow asset must never trap visitors behind the loading screen.
-  const deadline = setTimeout(reveal, 8000);
-  window.addEventListener('pageshow', event => {
-    if (event.persisted) reveal();
-  });
+  if (eligible) {
+    showTimer = setTimeout(() => {
+      if (finished) return;
+      root.classList.add('site-loading');
+      document.dispatchEvent(new Event('show-site-loader'));
+    }, 700);
+    // Slow or failed downloads must not block the site indefinitely.
+    deadline = setTimeout(reveal, 4000);
+  }
+  window.addEventListener('pageshow', event => { if (event.persisted) reveal(); });
 
   function decode(image) {
     if (typeof image.decode === 'function') return image.decode().catch(() => {});
@@ -34,31 +52,23 @@
     image.src = url;
     return decode(image).then(() => image);
   }
-  const textureReady = loadImage('/images/cork-seamless.jpg').then(image => {
-    if (image.naturalWidth) {
-      root.style.setProperty('--cork-texture', `url("${image.src}")`);
-    }
+  const textureReady = loadImage('/images/cork-seamless.webp').then(image => {
+    if (image.naturalWidth) root.style.setProperty('--cork-texture', `url("${image.src}")`);
   });
 
   async function preparePage() {
-    const assets = [textureReady];
-    for (const image of document.images) {
-      if (image.loading !== 'lazy') assets.push(decode(image));
-    }
-    // Include the collage name and any other images painted by CSS.
-    const backgrounds = new Set();
-    for (const element of document.querySelectorAll('body, body *')) {
-      const background = getComputedStyle(element).backgroundImage;
-      for (const match of background.matchAll(/url\(["']?([^"')]+)["']?\)/g)) {
-        backgrounds.add(match[1]);
+    if (!eligible || finished) { reveal(); return; }
+    const assets = [textureReady, loadImage('/images/isobel-bartels-logo.webp')];
+    // Only wait for images in the initial viewport, never the entire gallery.
+    for (const image of document.querySelectorAll('body > :not(.site-loader) img')) {
+      const rect = image.getBoundingClientRect();
+      if (rect.top < innerHeight && rect.bottom > 0 && rect.width > 0) {
+        image.loading = 'eager';
+        assets.push(decode(image));
       }
     }
-    for (const url of backgrounds) assets.push(loadImage(url));
-    if (document.fonts) assets.push(document.fonts.ready);
     await Promise.allSettled(assets);
-    requestAnimationFrame(() => requestAnimationFrame(reveal));
+    reveal();
   }
-  document.addEventListener('DOMContentLoaded', () => {
-    preparePage().catch(reveal);
-  }, { once: true });
+  document.addEventListener('DOMContentLoaded', () => { preparePage().catch(reveal); }, { once: true });
 })();

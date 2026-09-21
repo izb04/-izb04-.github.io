@@ -1,8 +1,9 @@
 .site-loader { display: none; }
-html.site-loading { overflow: hidden; }
-html.site-loading body > :not(.site-loader) { visibility: hidden; }
-html.site-loading body > :not(.site-loader),
-html.site-loading body > :not(.site-loader) * { animation: none !important; }
+html.site-pending, html.site-loading { overflow: hidden; background: #e5dcf5; }
+html.site-pending body { background: #e5dcf5; }
+html.site-pending body > :not(.site-loader) { visibility: hidden; }
+html.site-pending body > :not(.site-loader),
+html.site-pending body > :not(.site-loader) * { animation: none !important; }
 html.site-loading .site-loader,
 html.site-revealing .site-loader {
   display: flex;
@@ -11,10 +12,10 @@ html.site-revealing .site-loader {
   z-index: 2147483647;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: #e5dcf5;
   pointer-events: all;
   opacity: 1;
-  transition: opacity 350ms ease;
+  transition: opacity 180ms ease;
 }
 .site-loader-logo {
   width: min(620px, 82vw);
@@ -47,5 +48,12 @@ html.site-revealing .site-loader {
 }
 @media print {
   .site-loader { display: none !important; }
-  html.site-loading body > :not(.site-loader) { visibility: visible; }
+  html.site-pending body > :not(.site-loader) { visibility: visible; }
 }
+
+/* Returning to the board should not replay the staggered entrance. */
+html.site-instant .board-name,
+html.site-instant .corkboard > *,
+html.site-instant .corkboard > .pinned-item > .pushpin,
+html.site-instant .graduation-note > .tape,
+html.site-instant .visitor-sticky::before { animation: none !important; }
