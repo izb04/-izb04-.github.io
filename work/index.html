@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preload" as="image" href="/images/cork-seamless.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="/loading.css">
+  <link rel="preload" as="image" href="/images/isobel-bartels-cutout.png" fetchpriority="high">
+  <script src="/loading-logo.js" defer></script>
+  <script src="/cork-background.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Isobel Bartels</title>
+  <meta property="og:title" content="Isobel Bartels">
+  <meta property="og:site_name" content="Isobel Bartels">
+  <meta name="twitter:title" content="Isobel Bartels">
+  <meta name="application-name" content="Isobel Bartels">
+  <meta name="apple-mobile-web-app-title" content="Isobel Bartels">
   <meta name="robots" content="nosnippet">
 
   <style>
@@ -21,7 +31,7 @@
     body {
       min-height: 100vh;
       background-color: #c9a173;
-      background-image: url("/images/cork.jpg");
+      background-image: var(--cork-texture, url("/images/cork-seamless.jpg"));
       background-size: 640px auto;
       background-repeat: repeat;
       font-family: 'Times New Roman', Times, serif;
@@ -300,8 +310,13 @@
   <link rel="stylesheet" href="/collage-header.css">
 </head>
 <body>
+  <div class="site-loader" role="status" aria-label="Loading Isobel Bartels">
+    <div class="site-loader-logo" aria-hidden="true">
+      <img src="/images/isobel-bartels-cutout.png" alt="" width="2172" height="724" fetchpriority="high">
+    </div>
+  </div>
 
-  <a class="collage-header" href="/" aria-label="Isobel Bartels — back to the board">
+  <a class="collage-header" href="/" aria-label="Isobel Bartels — home">
     <img src="/images/isobel-bartels-cutout.png" alt="Isobel Bartels" width="2172" height="724">
   </a>
 

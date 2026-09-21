@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preload" as="image" href="/images/cork-seamless.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="/loading.css">
+  <link rel="preload" as="image" href="/images/isobel-bartels-cutout.png" fetchpriority="high">
+  <script src="/loading-logo.js" defer></script>
+  <script src="/cork-background.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Isobel Bartels</title>
+  <meta name="twitter:title" content="Isobel Bartels">
+  <meta name="application-name" content="Isobel Bartels">
+  <meta name="apple-mobile-web-app-title" content="Isobel Bartels">
   <link rel="canonical" href="https://isobelbartels.com/">
   <meta name="robots" content="nosnippet">
   <meta property="og:title" content="Isobel Bartels">
@@ -111,7 +119,7 @@
       padding: 60px 40px 80px;
       background-color: #c9a173;
       /* A seamless version of the original cork texture prevents tile lines. */
-      background-image: url("/images/cork-seamless.png");
+      background-image: var(--cork-texture, url("/images/cork-seamless.jpg"));
       background-repeat: repeat;
       background-size: 640px auto;
       box-shadow: inset 0 2px 8px rgba(0,0,0,0.35);
@@ -672,6 +680,11 @@
   <link rel="stylesheet" href="/photo-strip.css">
 </head>
 <body>
+  <div class="site-loader" role="status" aria-label="Loading Isobel Bartels">
+    <div class="site-loader-logo" aria-hidden="true">
+      <img src="/images/isobel-bartels-cutout.png" alt="" width="2172" height="724" fetchpriority="high">
+    </div>
+  </div>
 
   <!-- CORKBOARD CONTENT -->
   <div id="corkboard-wrapper">
@@ -763,7 +776,7 @@
 
   <dialog id="delete-note-dialog" aria-labelledby="delete-note-dialog-title">
     <form id="delete-note-form" method="dialog">
-      <label id="delete-note-dialog-title" for="delete-note-password">Enter the corkboard password to delete this note</label>
+      <label id="delete-note-dialog-title" for="delete-note-password">Enter the password to delete this note</label>
       <input id="delete-note-password" type="password" required autocomplete="current-password">
       <div id="delete-note-error" role="alert"></div>
       <div class="note-actions">
