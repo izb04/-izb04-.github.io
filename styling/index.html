@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preload" as="image" href="/images/cork-seamless.webp" fetchpriority="high">
+  <link rel="stylesheet" href="/loading.css">
+  <link rel="preload" as="image" href="/images/isobel-bartels-logo.webp" fetchpriority="high">
+  <script src="/loading-logo.js" defer></script>
+  <script src="/cork-background.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fashion styling by Isobel Bartels.">
+  <meta property="og:description" content="Fashion styling by Isobel Bartels.">
+  <meta property="og:url" content="https://isobelbartels.com/styling/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://isobelbartels.com/images/isobel-bartels-cutout.png">
+  <meta property="og:image:alt" content="Isobel Bartels collage logo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:description" content="Fashion styling by Isobel Bartels.">
+  <meta name="twitter:image" content="https://isobelbartels.com/images/isobel-bartels-cutout.png">
+  <meta name="theme-color" content="#e5dcf5">
+  <title>Isobel Bartels</title>
+  <link rel="canonical" href="https://isobelbartels.com/styling/">
+  <meta property="og:title" content="Isobel Bartels">
+  <meta property="og:site_name" content="Isobel Bartels">
+  <meta name="twitter:title" content="Isobel Bartels">
+  <meta name="application-name" content="Isobel Bartels">
+  <meta name="apple-mobile-web-app-title" content="Isobel Bartels">
+  <meta name="robots" content="max-image-preview:large">
+
+  <style>
+
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px 24px 72px; min-height: 100vh; font-family: 'Times New Roman', Times, serif; color: #35271f; background: #c9a173 var(--cork-texture, url('/images/cork-seamless.webp')) repeat; background-size: 640px auto; }
+    main { max-width: 1100px; margin: auto; }
+    .back-link { color: #fffaf0; text-shadow: 0 1px 4px #000b; font-size: 15px; }
+    h1 { color: #fffaf0; text-shadow: 0 2px 7px #0008; text-align: center; font-size: clamp(32px, 5vw, 44px); font-weight: normal; margin: 30px 0 52px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #633650; outline-offset: 8px; }
+    @media (max-width: 550px) { body { padding: 20px 24px 50px; } }
+
+    .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px; max-width: 900px; margin: auto; align-items: start; }
+    .photo { display: block; padding: 12px; background: #fffaf0; box-shadow: 0 8px 18px #35210b66; transform: rotate(-1deg); transition: transform .18s ease; }
+    .photo:nth-child(2) { transform: rotate(1deg); }
+    .photo:hover { transform: translateY(-4px); }
+    .photo-group { grid-column: 1 / -1; }
+    .photo-image { display: block; position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .photo-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .photo-image.portrait { aspect-ratio: 3 / 4; }
+    .portrait img { position: absolute; top: 50%; left: 50%; width: 133.3333%; height: 75%; transform: translate(-50%, -50%) rotate(var(--rotation)); }
+    .turn-left { --rotation: -90deg; }
+    .turn-right { --rotation: 90deg; }
+    dialog { border: 0; padding: 44px 14px 14px; background: #fffaf0; max-width: 95vw; max-height: 95vh; }
+    dialog::backdrop { background: #140e08eb; }
+    dialog .photo-image { width: min(85vw, calc(76vh * 4 / 3)); }
+    dialog .portrait { width: min(85vw, calc(76vh * 3 / 4)); }
+    dialog button { position: absolute; right: 10px; top: 5px; border: 0; background: none; color: #35271f; font-size: 28px; cursor: pointer; }
+    @media (max-width: 550px) { .gallery { grid-template-columns: 1fr; gap: 32px; } .photo-group { grid-column: auto; } }
+    @media (prefers-reduced-motion: reduce) { .photo { transition: none; } }
+  </style>
+  <link rel="stylesheet" href="/collage-header.css">
+</head>
+<body>
+  <div class="site-loader" role="status" aria-label="Loading Isobel Bartels">
+    <div class="site-loader-logo" aria-hidden="true">
+      <img src="/images/isobel-bartels-logo.webp" alt="" width="2172" height="724" fetchpriority="high">
+    </div>
+  </div>
+
+  <a class="collage-header" href="/" aria-label="Isobel Bartels — home">
+    <img src="/images/isobel-bartels-logo.webp" alt="Isobel Bartels" width="2172" height="724">
+  </a>
+
+  <main>
+    <a class="back-link" href="/art/">← back to creative portfolio</a>
+    <h1>Styling</h1>
+    <div class="gallery">
+      <a class="photo" href="/images/styling-leopard-red-bag.jpg" data-orientation="portrait turn-left">
+        <span class="photo-image portrait turn-left"><img src="/images/styling-leopard-red-bag.jpg" alt="Styled looks with leopard print, layered accessories, and a red handbag" width="5152" height="3864"></span>
+      </a>
+      <a class="photo" href="/images/styling-mirror.jpg" data-orientation="portrait turn-right">
+        <span class="photo-image portrait turn-right"><img src="/images/styling-mirror.jpg" alt="Mirror detail of a leopard-print look with a black cap and statement jewelry" width="5152" height="3864" loading="lazy"></span>
+      </a>
+      <a class="photo photo-group" href="/images/styling-group.jpg" data-orientation="">
+        <span class="photo-image"><img src="/images/styling-group.jpg" alt="Three styled looks featuring leopard print, layered jewelry, and black and red accents" width="5152" height="3864" loading="lazy"></span>
+      </a>
+    </div>
+
+  </main>
+  <dialog aria-label="Enlarged styling photo">
+    <button type="button" aria-label="Close photo">×</button>
+    <div class="photo-image"><img alt=""></div>
+  </dialog>
+  <script>
+    const viewer = document.querySelector('dialog');
+    const imageBox = viewer.querySelector('.photo-image');
+    const enlarged = viewer.querySelector('img');
+    document.querySelectorAll('.photo').forEach(photo => {
+      photo.addEventListener('click', event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        imageBox.className = 'photo-image ' + photo.dataset.orientation;
+        enlarged.src = photo.href;
+        enlarged.alt = photo.querySelector('img').alt;
+        viewer.showModal();
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    viewer.querySelector('button').addEventListener('click', () => viewer.close());
+    viewer.addEventListener('click', event => {
+      if (event.target !== viewer) return;
+      const bounds = viewer.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right ||
+          event.clientY < bounds.top || event.clientY > bounds.bottom) viewer.close();
+    });
+    viewer.addEventListener('close', () => {
+      enlarged.removeAttribute('src');
+      document.body.style.overflow = '';
+    });
+  </script>
+</body>
+</html>
