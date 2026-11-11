@@ -37,8 +37,8 @@
     a:focus-visible, button:focus-visible { outline: 3px solid #633650; outline-offset: 8px; }
     @media (max-width: 550px) { body { padding: 20px 24px 50px; } }
 
-    .pieces { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px; max-width: 880px; margin: auto; align-items: start; }
-    .piece { display: block; background: #fffaf0; padding: 15px; color: inherit; text-decoration: none; box-shadow: 0 8px 16px #35210b66; transform: rotate(-1deg); transition: transform .18s ease; }
+    .pieces { columns: 2; column-gap: 38px; max-width: 880px; margin: auto; }
+    .piece { display: inline-block; width: 100%; margin-bottom: 38px; break-inside: avoid; background: #fffaf0; padding: 15px; color: inherit; text-decoration: none; box-shadow: 0 8px 16px #35210b66; transform: rotate(-1deg); transition: transform .18s ease; }
     .piece:nth-child(even) { transform: rotate(1deg); }
     .piece:hover { transform: translateY(-4px); }
     figure { margin: 0; }
@@ -50,7 +50,7 @@
     dialog img { display: block; margin: auto; max-width: 85vw; max-height: 72vh; object-fit: contain; }
     dialog p { text-align: center; margin: 14px 0 2px; }
     dialog button { position: absolute; right: 10px; top: 5px; border: 0; background: none; font-size: 28px; cursor: pointer; }
-    @media (max-width: 550px) { .pieces { grid-template-columns: 1fr; gap: 32px; } }
+    @media (max-width: 550px) { .pieces { columns: 1; } .piece { margin-bottom: 32px; } }
     @media (prefers-reduced-motion: reduce) { .piece { transition: none; } }
   </style>
   <link rel="stylesheet" href="/collage-header.css">
